@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".list_and_recycler_view.ListAndRecyclerViewActivity"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/listViewBtn"
+        android:layout_width="171dp"
+        android:layout_height="84dp"
+        android:text="List view with custom Adapter"/>
+
+    <Button
+        android:id="@+id/recyclerViewBtn"
+        android:layout_width="169dp"
+        android:layout_height="64dp"
+        android:text="Recycler View"/>
+
+    <Button
+        android:id="@+id/heterogeneousLayoutBtn"
+        android:layout_width="169dp"
+        android:layout_height="77dp"
+        android:text="Heterogeneous Layout With Recycler View" />
+
+</LinearLayout>

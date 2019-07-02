@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Jupiter"
+        android:id="@+id/menu_jupiter"/>
+    <item android:title="Venus"
+        android:id="@+id/menu_venus"/>
+    <item android:title="Earth"
+        android:id="@+id/menu_earth"/>
+</menu>

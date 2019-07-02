@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="Home"
+        android:id="@+id/menu_home"
+        android:icon="@mipmap/ic_launcher_round"
+        app:showAsAction="ifRoom"/>
+    <item android:title="Settings"
+        android:id="@+id/menu_settings"
+        android:icon="@mipmap/ic_launcher_round"/>
+    <!-- menu group -->
+    <group android:id="@+id/group_authentication">
+        <item android:title="Authentication"
+            android:enabled="false"
+            android:checkable="false"/>
+        <item android:id="@+id/menu_login"
+            android:title="Login" />
+        <item android:id="@+id/menu_logout"
+            android:title="Logout" />
+    </group>
+    <!-- background color menu group -->
+    <group android:checkableBehavior="single">
+        <item android:title="Backgroud"
+            android:enabled="false"
+            android:checkable="false"/>
+        <item android:title="White"
+            android:id="@+id/menu_white"/>
+        <item android:title="Green"
+            android:id="@+id/menu_greed"/>
+        <item android:title="Blue"
+            android:id="@+id/menu_blue"/>
+    </group>
+
+</menu>

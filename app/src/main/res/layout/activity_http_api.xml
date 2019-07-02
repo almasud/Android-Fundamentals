@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".http_api.HttpApiActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <Button
+        android:id="@+id/buttonHttpImgDownload"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="Download and show image"
+        android:textAllCaps="false"
+        android:onClick="activityDownloadImg"/>
+
+    <Button
+        android:id="@+id/button_http_api_02"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="Retrofit get"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        android:onClick="activityRetrofitGet"/>
+
+    <Button
+        android:id="@+id/retrofitDynUrlBtn"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="Retrofit Dynamic URL"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        android:onClick="activityRetrofitDynamicURL" />
+
+    <Button
+        android:id="@+id/retrofitPostBtn"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="Retrofit Post"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        android:onClick="activityRetrofitPost" />
+
+</LinearLayout>

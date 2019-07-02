@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".processes_and_threads.ProcessThreadActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Long process in UI or main thread."
+        android:textSize="16sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Frequently Press"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        android:onClick="longProcessMainThread"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Try to update the UI from another thread."
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Press Me"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        android:onClick="updateUIOtherThread"/>
+
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Post the UI in main thread by using a handler"
+    android:textSize="16sp"
+    android:layout_marginTop="20dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Press Me"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        android:onClick="updateUIByHandler"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Extending AsyncTask class without creating thread."
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
+
+    <ProgressBar
+        android:id="@+id/threadPBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="377dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:max="10" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Press Me"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        android:onClick="extendingAsyncTask"/>
+</LinearLayout>

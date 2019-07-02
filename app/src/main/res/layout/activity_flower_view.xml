@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".http_api.FlowerViewActivity"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/flowerDetailIV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_marginTop="20dp"
+        android:scaleType="fitXY"
+        android:padding="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/flowerNameTitle"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:text="Name:"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/flowerNameTV"
+            android:layout_width="0dp"
+            android:layout_height="23dp"
+            android:text="Azalea"
+            android:textSize="18sp"
+            android:layout_weight="3"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/flowerCatTitle"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:text="Category:"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/flowerCatTV"
+            android:layout_width="0dp"
+            android:layout_height="23dp"
+            android:text="Shrubs"
+            android:textSize="18sp"
+            android:layout_weight="3"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/flowerInsTitle"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:text="Instructions:"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/flowerInsTV"
+            android:layout_width="0dp"
+            android:layout_height="101dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="3"
+            android:text="Large double. Good grower, heavy bloomer. Early to mid-season, acid loving plants. Plant in moist well drained soil with pH of 4.0-5.5."
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/flowerPriceTitle"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:text="Price:"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/flowerPriceTV"
+            android:layout_width="0dp"
+            android:layout_height="23dp"
+            android:text="15.99"
+            android:textSize="18sp"
+            android:layout_weight="3"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

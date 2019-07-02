@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "622596362995",
+    "firebase_url": "https://my-project-1552674979785.firebaseio.com",
+    "project_id": "my-project-1552674979785",
+    "storage_bucket": "my-project-1552674979785.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622596362995:android:7007051f345336d7",
+        "android_client_info": {
+          "package_name": "com.example.almasud.fundamental"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "622596362995-fdk7qcmk7ua23gcepa2rcn761pk91v61.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.almasud.fundamental",
+            "certificate_hash": "d6bdff8b63cf06038edeecc01062a1aa79bb8c43"
+          }
+        },
+        {
+          "client_id": "622596362995-n7o4e987s8rsaih74fh0slo4tcfpb8tc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrxoYSmRH1Fv5pJDj_LiJXR_SxS63OnnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "622596362995-n7o4e987s8rsaih74fh0slo4tcfpb8tc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

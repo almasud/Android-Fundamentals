@@ -1,0 +1,85 @@
+<resources>
+    <string name="app_name">Android Fundamental</string>
+    <string name="search_hint">Enter your city</string>
+    <string name="settings_menu">Settings</string>
+    <string name="weather_api">4c1673dad5bd116ccc4692c56639301e</string>
+    <string name="google_map_api_key">AIzaSyDNiO6GQ1bq7nogD2paeCXFnlB9VIpN2CM</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="gender">Gender</string>
+    <string name="password">Password</string>
+    <string-array name="country_list">
+        <item>Bangladesh</item>
+        <item>United State</item>
+        <item>United Kingdom</item>
+        <item>Singapore</item>
+    </string-array>
+    <string name="alert_dialog1">Alert Dialog One</string>
+    <string name="alert_dialog2">Alert Dialog Two</string>
+    <string name="alert_dialog3">Alert Dialog Three</string>
+    <string name="simple_list">Simple List View</string>
+    <string name="check_box">Check Box</string>
+    <string name="radio_button">Radio Button</string>
+    <string-array name="arrayCountry">
+        <item>Choose One</item>
+        <item>Bangladesh</item>
+        <item>Singapore</item>
+        <item>US</item>
+        <item>UK</item>
+    </string-array>
+    <string name="custom_button">Custom Dialog</string>
+    <string name="static_spinner">Static Spinner</string>
+    <string name="dynamic_spinner">Dynamic Spinner</string>
+    <string name="sign_in">Sign in</string>
+    <string name="cancel">Cancel</string>
+    <string name="sms_read">Read Received SMS</string>
+    <string name="shared_preference">Shared Preference</string>
+    <string name="title_activity_pref_login">SPref Login Activity</string>
+    <string name="title_activity_pref_main">SPref Main Activity</string>
+    <string name="login_to_access">Login to Access</string>
+    <string name="enter_password">Enter password</string>
+    <string name="title_activity_register">Register</string>
+    <string name="registration_form">Registration Form</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="enter_a_new_password">Enter a new password</string>
+    <string name="login">Login</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="register">Register</string>
+    <string name="content_provider">Content Provider</string>
+    <string name="title_activity_content_provider">ContentProviderActivity</string>
+    <string name="title_activity_sqlite">SQLiteActivity</string>
+    <string name="sqlite_database">SQLite Database</string>
+    <string name="title_activity_bound_service">BoundServiceActivity</string>
+    <string name="view_date_time">View Date Time</string>
+    <string name="date_and_time">Date and Time</string>
+    <string name="activity_life_cycle_and_intent">Activity Life Cycle and Intent</string>
+    <string name="checkbox_radio_button_spinner">Checkbox, Radio Button and Spinner</string>
+    <string name="event_handling">Event Handling</string>
+    <string name="spinner">Spinner</string>
+    <string name="alert_dialog">Alert Dialog</string>
+    <string name="broadcast_receiver">Broadcast Receiver</string>
+    <string name="service">Service</string>
+    <string name="bound_service">Bound Service</string>
+    <string name="firebase_cloud_messaging">Firebase Cloud Messaging</string>
+    <string name="title_activity_fcm">FCMActivity</string>
+    <string name="fcm_text">Firebase Cloud Messaging</string>
+    <string name="fcm_instance_id">FCM Instance ID</string>
+    <string name="title_activity_list_view">ListViewActivity</string>
+    <string name="employee_image">Employee Image</string>
+    <string name="select_skills">Select Skills:</string>
+    <string name="java">Java</string>
+    <string name="php">PHP</string>
+    <string name="python">Python</string>
+    <string name="choose_skill_platform">Choose skill paltform:</string>
+    <string name="choose_city">Choose City:</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu">Menu</string>
+    <string name="list_and_recycler_view">List and Recycler View</string>
+    <string name="fragment">Fragment</string>
+    <string name="sorted_practice">Sorted Practice</string>
+    <string name="unsorted_practice">Unsorted Practice</string>
+</resources>

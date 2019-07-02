@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".map_location.ClusterNCurrentPlacesActivity">
+
+    <fragment
+        android:id="@+id/map_fragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.mancj.materialsearchbar.MaterialSearchBar
+        style="@style/MaterialSearchBarLight"
+        app:mt_speechMode="false"
+        app:mt_hint="Search a place"
+        app:mt_maxSuggestionsCount="10"
+        app:mt_navIconEnabled="true"
+        app:mt_placeholder="Search a place..."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/autocomplete_search_bar"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        android:layout_margin="16dp"
+        android:elevation="5dp"
+        android:outlineProvider="bounds"/>
+
+    <Button
+        android:id="@+id/btn_fin_places"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:textAllCaps="false"
+        android:text="Find Restaurants"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
+        android:layout_margin="16dp"
+        android:textStyle="bold"/>
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/top_panel"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<fragment android:id="@+id/autocomplete_search_bar"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"-->
+            <!--android:layout_weight="1"/>-->
+    <!--</LinearLayout>-->
+
+    <!--<FrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/cluster_map_container">-->
+        <!---->
+    <!--</FrameLayout>-->
+
+</RelativeLayout>

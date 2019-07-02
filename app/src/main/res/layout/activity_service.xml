@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".service.ServiceActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Android Simple Service Example"
+        android:textAlignment="center"
+        android:textSize="16dp"
+        android:textColor="@android:color/holo_red_dark"/>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical"
+       android:gravity="center">
+
+       <Button
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Start started service"
+           android:textAllCaps="false"
+           android:onClick="startStartedService"/>
+
+       <Button
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Stop started service"
+           android:textAllCaps="false"
+           android:onClick="stopStartedService"/>
+
+       <Button
+           android:id="@+id/start_play_btn"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Play"
+           android:textAllCaps="false"/>
+       <Button
+           android:id="@+id/stop_play_btn"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Stop"
+           android:textAllCaps="false"/>
+
+       <Button
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Start intent service"
+           android:textAllCaps="false"
+           android:onClick="startIntentService"/>
+
+       <Button
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Show random number"
+           android:textAllCaps="false"
+           android:onClick="getRandomNumber"/>
+
+   </LinearLayout>
+
+</LinearLayout>
