@@ -1,8 +1,11 @@
 package com.example.almasud.fundamental.map_location;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.IntentSender;
 import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,15 +16,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.almasud.fundamental.R;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
@@ -90,20 +98,10 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
         mPlacesClient = Places.createClient(this);
         final AutocompleteSessionToken sessionToken = AutocompleteSessionToken.newInstance();
 
-//        mPlaceFields = Arrays.asList(Place.Field.ID, Place.Field.NAME,
-//                Place.Field.ADDRESS, Place.Field.LAT_LNG);
-//        mMapOptions = new GoogleMapOptions();
-//        mMapOptions.mapType(GoogleMap.MAP_TYPE_TERRAIN);
-//        mMapOptions.zoomControlsEnabled(true);
-//        mMapOptions.compassEnabled(true);
-//        SupportMapFragment mapFragment = SupportMapFragment.newInstance(mMapOptions);
-//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//        ft.replace(R.id.map_fragment, mapFragment);
-//        ft.commit();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
         mapFragment.getMapAsync(this);
         mapView = mapFragment.getView();
-//        setupPlaceAutoComplete();
+
         materialSearchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
             @Override
             public void onSearchStateChanged(boolean enabled) {
@@ -224,21 +222,75 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
         });
     }
 
-    @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+
+        if (mapView != null && mapView.findViewById(Integer.parseInt("1")) != null) {
+            // Code for changing the location button position
+            View locationButton = ((View) mapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP,0);
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+            layoutParams.setMargins(0, 0, 40, 220);
+
+            // Check if GPS is enabled or not and request the user to enabled it
+            LocationRequest locationRequest = LocationRequest.create();
+            locationRequest.setInterval(10000);
+            locationRequest.setFastestInterval(5000);
+            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+            LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
+
+            SettingsClient settingsClient= LocationServices.getSettingsClient(ClusterNCurrentPlacesActivity.this);
+            Task<LocationSettingsResponse> task = settingsClient.checkLocationSettings(builder.build());
+            task.addOnSuccessListener(ClusterNCurrentPlacesActivity.this, new OnSuccessListener<LocationSettingsResponse>() {
+                @Override
+                public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
+                    // Device location with high accuracy is already enabled
+                    // Get device location
+                    getDeviceLocation();
+                }
+            });
+
+            task.addOnFailureListener(ClusterNCurrentPlacesActivity.this, new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    if (e instanceof ResolvableApiException) {
+                        ResolvableApiException apiException = (ResolvableApiException) e;
+                        try {
+                            apiException.startResolutionForResult(ClusterNCurrentPlacesActivity.this, 11);
+                        } catch (IntentSender.SendIntentException ex) {
+                            ex.printStackTrace();
+                        }
+
+                    }
+                }
+            });
+
+        }
+
         // Code for marker clustering
         mClusterManager = new ClusterManager<>(ClusterNCurrentPlacesActivity.this, mMap);
         mMap.setOnCameraIdleListener(mClusterManager);
         mMap.setOnMarkerClickListener(mClusterManager);
-        // Get device location
-        getDeviceLocation();
         mMap.setMyLocationEnabled(true);
     }
 
-    @SuppressLint("MissingPermission")
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 11) {
+            if (resultCode == RESULT_OK) {
+                // Device location with high accuracy enabled is confirmed
+                // Get device location
+                getDeviceLocation();
+            }
+        }
+    }
+
     private void getDeviceLocation() {
         mLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override

@@ -39,24 +39,4 @@
         android:layout_margin="16dp"
         android:textStyle="bold"/>
 
-    <!--<LinearLayout-->
-        <!--android:id="@+id/top_panel"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal">-->
-
-        <!--<fragment android:id="@+id/autocomplete_search_bar"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"-->
-            <!--android:layout_weight="1"/>-->
-    <!--</LinearLayout>-->
-
-    <!--<FrameLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:id="@+id/cluster_map_container">-->
-        <!---->
-    <!--</FrameLayout>-->
-
 </RelativeLayout>
