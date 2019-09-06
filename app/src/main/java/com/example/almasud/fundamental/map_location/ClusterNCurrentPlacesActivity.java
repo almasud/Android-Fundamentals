@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -91,16 +92,16 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
 
         materialSearchBar = findViewById(R.id.autocomplete_search_bar);
         findBtn = findViewById(R.id.btn_fin_places);
-
         mItems = new ArrayList<>();
-        mLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        Places.initialize(getApplicationContext(), getString(R.string.google_map_api_key));
-        mPlacesClient = Places.createClient(this);
-        final AutocompleteSessionToken sessionToken = AutocompleteSessionToken.newInstance();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
         mapFragment.getMapAsync(this);
         mapView = mapFragment.getView();
+
+        mLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        Places.initialize(getApplicationContext(), getString(R.string.google_map_api_key));
+        mPlacesClient = Places.createClient(this);
+        final AutocompleteSessionToken sessionToken = AutocompleteSessionToken.newInstance();
 
         materialSearchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
             @Override
@@ -166,6 +167,7 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
                         String suggestion = materialSearchBar.getLastSuggestions().get(position).toString();
                         materialSearchBar.setText(suggestion);
                         materialSearchBar.clearSuggestions();
+
                         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                         if (inputMethodManager != null)
                             inputMethodManager.hideSoftInputFromWindow(materialSearchBar.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
@@ -225,16 +227,21 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setMyLocationEnabled(true);
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
 
+        // Define a region inside the map to reposition all map buttons
+        mMap.setPadding(0, 150, 40, 160);
+        // Specifically change the position of the my location button
         if (mapView != null && mapView.findViewById(Integer.parseInt("1")) != null) {
-            // Code for changing the location button position
             View locationButton = ((View) mapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP,0);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-            layoutParams.setMargins(0, 0, 40, 220);
+
+            layoutParams.setMargins(0, 0, 40, 240);
 
             // Check if GPS is enabled or not and request the user to enabled it
             LocationRequest locationRequest = LocationRequest.create();
@@ -265,18 +272,26 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
                         } catch (IntentSender.SendIntentException ex) {
                             ex.printStackTrace();
                         }
-
                     }
                 }
             });
 
+            mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+                @Override
+                public boolean onMyLocationButtonClick() {
+                    if (materialSearchBar.isSuggestionsVisible())
+                        materialSearchBar.clearSuggestions();
+                    if (materialSearchBar.isSearchEnabled())
+                        materialSearchBar.disableSearch();
+                    return false;
+                }
+            });
         }
 
         // Code for marker clustering
         mClusterManager = new ClusterManager<>(ClusterNCurrentPlacesActivity.this, mMap);
         mMap.setOnCameraIdleListener(mClusterManager);
         mMap.setOnMarkerClickListener(mClusterManager);
-        mMap.setMyLocationEnabled(true);
     }
 
     @Override
@@ -298,8 +313,10 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
                 if (task.isSuccessful()) {
                     mLastKnownLocation = task.getResult();
                     if (mLastKnownLocation != null) {
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+
+                        // Code for add marker and cluster
                         LatLng latLng = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
-                        // Code for marker
                         mMarker = mMap.addMarker(new MarkerOptions().position(latLng)
                         .title("Title").snippet("Snippet"));
                         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
@@ -310,7 +327,7 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
                                 mClusterManager.cluster();
                             }
                         });
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+
                     } else {
                         LocationRequest locationRequest = LocationRequest.create();
                         locationRequest.setInterval(10000);
@@ -323,8 +340,11 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
                                 if (locationResult == null)
                                     return;
                                 mLastKnownLocation = locationResult.getLastLocation();
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                                mLocationProviderClient.removeLocationUpdates(mLocationCallback);
+
+                                // Code for add marker and cluster
                                 LatLng latLng = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
-                                // Code for marker
                                 mMarker = mMap.addMarker(new MarkerOptions().position(latLng)
                                         .title("Title").snippet("Snippet"));
                                 mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
@@ -335,8 +355,7 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
                                         mClusterManager.cluster();
                                     }
                                 });
-                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-                                mLocationProviderClient.removeLocationUpdates(mLocationCallback);
+
                             }
                         };
                         mLocationProviderClient.requestLocationUpdates(locationRequest, mLocationCallback, null);
