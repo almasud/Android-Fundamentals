@@ -1,14 +1,13 @@
 package com.example.almasud.fundamental.map_location;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -33,11 +32,9 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -52,14 +49,16 @@ import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.FetchPlaceResponse;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse;
+import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
+import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.maps.android.clustering.ClusterManager;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.mancj.materialsearchbar.adapter.SuggestionsAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -68,9 +67,10 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
     private FusedLocationProviderClient mLocationProviderClient;
     private PlacesClient mPlacesClient;
     private List<AutocompletePrediction> predictionList;
-
     private Location mLastKnownLocation;
     private LocationCallback mLocationCallback;
+//    private GeoDataClient mGeoDataClient;
+//    private PlaceDetectionClient mPlaceDetectionClient;
 
     private MaterialSearchBar materialSearchBar;
     private View mapView;
@@ -78,12 +78,8 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
 
     private final float DEFAULT_ZOOM = 17;
 
-    private GoogleMapOptions mMapOptions;
     private List<MarkerItem> mItems;
     private ClusterManager<MarkerItem> mClusterManager;
-    private Marker mMarker;
-    private List<Place.Field> mPlaceFields;
-    private AutocompleteSupportFragment mAutocompleteSupportFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +89,8 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
         materialSearchBar = findViewById(R.id.autocomplete_search_bar);
         findBtn = findViewById(R.id.btn_fin_places);
         mItems = new ArrayList<>();
+//        mGeoDataClient = Places.getGeoDataClient(this);
+//        mPlaceDetectionClient = Places.getPlaceDetectionClient(this);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
         mapFragment.getMapAsync(this);
@@ -183,7 +181,7 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
                                 LatLng latLngOfPlace = place.getLatLng();
                                 if (latLngOfPlace != null) {
                                     // Code for marker
-                                    mMarker = mMap.addMarker(new MarkerOptions().position(latLngOfPlace)
+                                    mMap.addMarker(new MarkerOptions().position(latLngOfPlace)
                                             .title(place.getName()).snippet(place.getAddress()));
                                     mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                                         @Override
@@ -222,6 +220,14 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
 
             }
         });
+
+        // Current places
+        findBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
@@ -231,6 +237,11 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
+
+        // Code for marker clustering
+        mClusterManager = new ClusterManager<>(ClusterNCurrentPlacesActivity.this, mMap);
+        mMap.setOnCameraIdleListener(mClusterManager);
+        mMap.setOnMarkerClickListener(mClusterManager);
 
         // Define a region inside the map to reposition all map buttons
         mMap.setPadding(0, 150, 40, 160);
@@ -287,11 +298,6 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
                 }
             });
         }
-
-        // Code for marker clustering
-        mClusterManager = new ClusterManager<>(ClusterNCurrentPlacesActivity.this, mMap);
-        mMap.setOnCameraIdleListener(mClusterManager);
-        mMap.setOnMarkerClickListener(mClusterManager);
     }
 
     @Override
@@ -317,8 +323,8 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
 
                         // Code for add marker and cluster
                         LatLng latLng = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
-                        mMarker = mMap.addMarker(new MarkerOptions().position(latLng)
-                        .title("Title").snippet("Snippet"));
+                        mMap.addMarker(new MarkerOptions().position(latLng)
+                                .title("Title").snippet("Snippet"));
                         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                             @Override
                             public void onMapLongClick(LatLng latLng) {
@@ -345,7 +351,7 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
 
                                 // Code for add marker and cluster
                                 LatLng latLng = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
-                                mMarker = mMap.addMarker(new MarkerOptions().position(latLng)
+                                mMap.addMarker(new MarkerOptions().position(latLng)
                                         .title("Title").snippet("Snippet"));
                                 mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                                     @Override
@@ -367,7 +373,6 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
         });
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.map_menu, menu);
@@ -377,7 +382,7 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nearByPlaces:
+            case R.id.currentPlaces:
                 showCurrentPlaces();
                 break;
         }
@@ -385,6 +390,39 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
     }
 
     private void showCurrentPlaces() {
+        // Use fields to define the data types to return.
+        List<Place.Field> placeFields = Collections.singletonList(Place.Field.NAME);
+        // Use the builder to create a FindCurrentPlaceRequest.
+        FindCurrentPlaceRequest request =
+                FindCurrentPlaceRequest.newInstance(placeFields);
+        Task<FindCurrentPlaceResponse> placeResponse = mPlacesClient.findCurrentPlace(request);
+        placeResponse.addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                FindCurrentPlaceResponse response = task.getResult();
+                int count = response.getPlaceLikelihoods().size();
 
+                String[] names = new String[count];
+                String[] address = new String[count];
+                LatLng[] latlangs = new LatLng[count];
+
+                for (int i=0; i < count; i++) {
+                    names[i] = response.getPlaceLikelihoods().get(i).getPlace().getName();
+                    address[i] = response.getPlaceLikelihoods().get(i).getPlace().getAddress();
+                    latlangs[i] = response.getPlaceLikelihoods().get(i).getPlace().getLatLng();
+                }
+                openDialogPlaces(names, address, latlangs);
+            } else {
+                Exception exception = task.getException();
+                if (exception instanceof ApiException) {
+                    ApiException apiException = (ApiException) exception;
+                    Log.e("My Tag", "Place not found: " + apiException.getStatusCode());
+                }
+            }
+        });
+    }
+
+    private void openDialogPlaces(String[] names, String[] address, LatLng[] latlangs) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setItems(names, null).show();
     }
 }

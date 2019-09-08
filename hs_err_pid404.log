@@ -1,0 +1,14 @@
+#
+# A fatal error has beenpne}mo}ed by the Java Runtime Envmvomunt:
+#
+#  Internal Error (ciMethodData.cpp:209), pid=404, tid=0x0000000000001ed0
+#  Error: ShouldNotReachHere()
+#
+# JRE version: OpenJDK Runtime Environment (8.0_202-b03) (build 1.8.0_202-release-1483-b03)
+# Java VM: OpenJDK 64-Bit Server VM (25.202-b03 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+

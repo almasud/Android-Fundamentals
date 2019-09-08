@@ -1,9 +1,9 @@
 package com.example.almasud.fundamental.list_and_recycler_view;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.widget.LinearLayout;
 
 import com.example.almasud.fundamental.R;
