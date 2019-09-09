@@ -33,7 +33,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements ContactAd
 
         contacts = new ArrayList<>();
         contactAdapter = new ContactAdapter(this, contacts, this);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayout.VERTICAL, false);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         contactRV.setLayoutManager(layoutManager);
         contactRV.setAdapter(contactAdapter);
     }
