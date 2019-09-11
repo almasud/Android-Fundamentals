@@ -3,8 +3,6 @@ package com.example.almasud.fundamental.map_location;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
@@ -38,6 +36,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -59,13 +58,11 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.mancj.materialsearchbar.adapter.SuggestionsAdapter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
-public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class ClusterCurrentNearByPlacesActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private FusedLocationProviderClient mLocationProviderClient;
@@ -73,7 +70,6 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
     private List<AutocompletePrediction> predictionList;
     private Location mLastKnownLocation;
     private LocationCallback mLocationCallback;
-    private Geocoder mGeocoder;
 
     private MaterialSearchBar materialSearchBar;
     private View mapView;
@@ -83,6 +79,7 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
 
     private List<MarkerItem> mItems;
     private ClusterManager<MarkerItem> mClusterManager;
+    private Double latitude, longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,8 +98,6 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
         Places.initialize(getApplicationContext(), getString(R.string.google_map_api_key));
         mPlacesClient = Places.createClient(this);
         final AutocompleteSessionToken sessionToken = AutocompleteSessionToken.newInstance();
-
-        mGeocoder = new Geocoder(this, Locale.getDefault());
 
         materialSearchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
             @Override
@@ -178,7 +173,7 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
                         FetchPlaceRequest fetchPlaceRequest = FetchPlaceRequest.builder(placeId, placeFields).build();
                         mPlacesClient.fetchPlace(fetchPlaceRequest).addOnSuccessListener(fetchPlaceResponse -> {
                             Place place = fetchPlaceResponse.getPlace();
-                            Log.e("My Tag", "Place found " + place.getName());
+                            Log.e("ClusterNCurrentPlaces", "Place found " + place.getName());
                             LatLng latLngOfPlace = place.getLatLng();
                             if (latLngOfPlace != null) {
                                 // Code for marker
@@ -215,10 +210,28 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
             }
         });
 
-        // Current places
+        // Nearby Restaurant button
         findBtn.setOnClickListener(view -> {
-
+            mMap.clear();
+            String restaurant = "restaurant";
+            String url = getUrl(latitude, longitude, restaurant);
+            Object[] transferData = new Object[2];
+            transferData[0] = mMap;
+            transferData[1] = url;
+            NearByPlaces nearByPlaces = new NearByPlaces();
+            nearByPlaces.execute(transferData);
+            Toast.makeText(this, "Searching for nearby restaurants...", Toast.LENGTH_SHORT).show();
         });
+    }
+
+    private String getUrl(Double latitude, Double longitude, String placeType) {
+        StringBuilder googleUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+        googleUrl.append("location=" + latitude + "," + longitude);
+        googleUrl.append("&radius=" + 3000);
+        googleUrl.append("&type=" + placeType);
+        googleUrl.append("&key=" + getString(R.string.google_place_api_key));
+
+        return googleUrl.toString();
     }
 
     @Override
@@ -230,7 +243,7 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
         // Code for marker clustering
-        mClusterManager = new ClusterManager<>(ClusterNCurrentPlacesActivity.this, mMap);
+        mClusterManager = new ClusterManager<>(ClusterCurrentNearByPlacesActivity.this, mMap);
         mMap.setOnCameraIdleListener(mClusterManager);
         mMap.setOnMarkerClickListener(mClusterManager);
 
@@ -253,9 +266,9 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
 
             LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
 
-            SettingsClient settingsClient= LocationServices.getSettingsClient(ClusterNCurrentPlacesActivity.this);
+            SettingsClient settingsClient= LocationServices.getSettingsClient(ClusterCurrentNearByPlacesActivity.this);
             Task<LocationSettingsResponse> task = settingsClient.checkLocationSettings(builder.build());
-            task.addOnSuccessListener(ClusterNCurrentPlacesActivity.this, new OnSuccessListener<LocationSettingsResponse>() {
+            task.addOnSuccessListener(ClusterCurrentNearByPlacesActivity.this, new OnSuccessListener<LocationSettingsResponse>() {
                 @Override
                 public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
                     // Device location with high accuracy is already enabled
@@ -264,13 +277,13 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
                 }
             });
 
-            task.addOnFailureListener(ClusterNCurrentPlacesActivity.this, new OnFailureListener() {
+            task.addOnFailureListener(ClusterCurrentNearByPlacesActivity.this, new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     if (e instanceof ResolvableApiException) {
                         ResolvableApiException apiException = (ResolvableApiException) e;
                         try {
-                            apiException.startResolutionForResult(ClusterNCurrentPlacesActivity.this, 11);
+                            apiException.startResolutionForResult(ClusterCurrentNearByPlacesActivity.this, 11);
                         } catch (IntentSender.SendIntentException ex) {
                             ex.printStackTrace();
                         }
@@ -307,10 +320,13 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
                 if (task.isSuccessful()) {
                     mLastKnownLocation = task.getResult();
                     if (mLastKnownLocation != null) {
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                        // Initialize latitude and longitude
+                        latitude = mLastKnownLocation.getLatitude();
+                        longitude = mLastKnownLocation.getLongitude();
                         // Add marker on current location
-                        LatLng latLng = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
-                        mMap.addMarker(new MarkerOptions().position(latLng));
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)));
+                        // Move camera on the location
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), DEFAULT_ZOOM));
                         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                             @Override
                             public void onMapLongClick(LatLng latLng) {
@@ -332,11 +348,11 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
                                 if (locationResult == null)
                                     return;
                                 mLastKnownLocation = locationResult.getLastLocation();
-                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-                                mLocationProviderClient.removeLocationUpdates(mLocationCallback);
                                 // Add marker on current location
-                                LatLng latLng = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
-                                mMap.addMarker(new MarkerOptions().position(latLng));
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)));
+                                // Move camera on the location
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), DEFAULT_ZOOM));
+                                mLocationProviderClient.removeLocationUpdates(mLocationCallback);
                                 mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                                     @Override
                                     public void onMapLongClick(LatLng latLng) {
@@ -351,7 +367,7 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
                         mLocationProviderClient.requestLocationUpdates(locationRequest, mLocationCallback, null);
                     }
                 } else {
-                    Toast.makeText(ClusterNCurrentPlacesActivity.this, "Unable to get last location", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ClusterCurrentNearByPlacesActivity.this, "Unable to get last location", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -404,7 +420,7 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
                 Exception exception = task.getException();
                 if (exception instanceof ApiException) {
                     ApiException apiException = (ApiException) exception;
-                    Log.e("My Tag", "Places not found: " + apiException.getStatusCode());
+                    Log.e("My Tag", "Place not found: " + apiException.getStatusCode());
                 }
             }
         });
@@ -419,8 +435,10 @@ public class ClusterNCurrentPlacesActivity extends AppCompatActivity implements 
                 String address = addresses[i];
                 mMap.clear();
                 mMap.addMarker(new MarkerOptions().position(latLng)
-                        .title(name).snippet(address));
+                        .title(name).snippet(address)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
             }
         };
         AlertDialog dialog = new AlertDialog.Builder(this)

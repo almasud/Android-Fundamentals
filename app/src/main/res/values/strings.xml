@@ -4,6 +4,7 @@
     <string name="settings_menu">Settings</string>
     <string name="weather_api">4c1673dad5bd116ccc4692c56639301e</string>
     <string name="google_map_api_key">AIzaSyDNiO6GQ1bq7nogD2paeCXFnlB9VIpN2CM</string>
+    <string name="google_place_api_key">AIzaSyBimc41EaAuqhtmP2C9KotyZyMjbzjS22o</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="male">Male</string>

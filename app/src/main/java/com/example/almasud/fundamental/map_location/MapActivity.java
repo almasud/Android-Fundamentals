@@ -24,7 +24,7 @@ public class MapActivity extends AppCompatActivity {
         startActivity(new Intent(this, MapMarkerActivity.class));
     }
 
-    public void activityClusterPlaces(View view) {
+    public void activityClusterCurrentNearByPlaces(View view) {
         startActivity(new Intent(this, LocationPermissionActivity.class));
     }
 }
