@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".map_location.LocationPermissionActivity"></activity>
+        <activity android:name=".map_location.MapDirectionActivity"></activity>
+        <activity android:name=".map_location.LocationPermissionActivity" />
         <activity android:name=".map_location.ClusterCurrentNearByPlacesActivity" />
 
         <service
@@ -46,7 +47,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_map_api_key"/>
+            android:value="@string/google_map_api_key" />
 
         <activity android:name=".map_location.MapMarkerActivity" />
         <activity android:name=".searchable_interface.SearchableInterfaceActivity">

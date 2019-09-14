@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Google Map Marker"
-        android:onClick="activityMap"
+        android:onClick="activityMapMarker"
         android:textAllCaps="false"/>
 
     <Button
@@ -28,5 +28,12 @@
         android:text="Cluster, Current and NearBy Places"
         android:onClick="activityClusterCurrentNearByPlaces"
         android:textAllCaps="false"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Map Direction"
+        android:textAllCaps="false"
+        android:onClick="activityMapDirection"/>
 
 </LinearLayout>

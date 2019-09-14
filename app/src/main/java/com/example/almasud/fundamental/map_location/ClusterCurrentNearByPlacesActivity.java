@@ -192,7 +192,7 @@ public class ClusterCurrentNearByPlacesActivity extends AppCompatActivity implem
                                 ApiException apiException = (ApiException) e;
                                 apiException.printStackTrace();
                                 Log.e("My Tag", "Place not found: " + apiException.getMessage());
-                                Log.e("My Tag", "Statuse code: " + apiException.getStatusCode());
+                                Log.e("My Tag", "Status code: " + apiException.getStatusCode());
                             }
                         });
                     }
