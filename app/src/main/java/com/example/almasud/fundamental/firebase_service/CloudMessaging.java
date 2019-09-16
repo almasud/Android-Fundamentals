@@ -1,4 +1,4 @@
-package com.example.almasud.fundamental.firebase_cloud_messaging;
+package com.example.almasud.fundamental.firebase_service;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -16,7 +16,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.Map;
 import java.util.Random;
 
-public class MessageService extends FirebaseMessagingService {
+public class CloudMessaging extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);

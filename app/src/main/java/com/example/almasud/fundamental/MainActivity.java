@@ -20,7 +20,7 @@ import com.example.almasud.fundamental.broadcast_receiver.BroadcastReceiverActiv
 import com.example.almasud.fundamental.camera_app.CameraAppActivity;
 import com.example.almasud.fundamental.content_provider.ContentProviderActivity;
 import com.example.almasud.fundamental.event_handling.EventHandlingActivity;
-import com.example.almasud.fundamental.firebase_cloud_messaging.FCMActivity;
+import com.example.almasud.fundamental.firebase_service.FirebaseActivity;
 import com.example.almasud.fundamental.checkbox_radio_button_spinner.CheckboxRadioButtonSpinnerActivity;
 import com.example.almasud.fundamental.fragment.FragmentActivity;
 import com.example.almasud.fundamental.list_and_recycler_view.ListAndRecyclerViewActivity;
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Firebase Cloud Messaging (FCM) Activity
     public void activityFCM(View view) {
-        intent = new Intent(MainActivity.this, FCMActivity.class);
+        intent = new Intent(MainActivity.this, FirebaseActivity.class);
         startActivity(intent);
     }
 

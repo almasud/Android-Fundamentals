@@ -1,5 +1,6 @@
-package com.example.almasud.fundamental.firebase_cloud_messaging;
+package com.example.almasud.fundamental.firebase_service;
 
+import android.content.Intent;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -9,12 +10,12 @@ import android.view.View;
 
 import com.example.almasud.fundamental.R;
 
-public class FCMActivity extends AppCompatActivity {
+public class FirebaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fcm);
+        setContentView(R.layout.activity_firebase);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -28,4 +29,11 @@ public class FCMActivity extends AppCompatActivity {
         });
     }
 
+    public void activityCustomAuth(View view) {
+        startActivity(new Intent(this, CustomAuthActivity.class));
+    }
+
+    public void activityBuildInAuth(View view) {
+        startActivity(new Intent(this, BuildInAuthActivity.class));
+    }
 }

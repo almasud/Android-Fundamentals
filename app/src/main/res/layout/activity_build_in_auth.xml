@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".firebase_service.BuildInAuthActivity">
+
+    <TextView
+        android:id="@+id/textViewFbaseAuthUemail"
+        android:layout_width="236dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="103dp"
+        android:text="Email@example.com"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFbaseAuthUname"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/textViewFbaseAuthUname"
+        android:layout_width="233dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="106dp"
+        android:text="Mr. Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageFbaseAuthUser"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/imageFbaseAuthUser"
+        android:layout_width="137dp"
+        android:layout_height="122dp"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="157dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/buttonFabaseEmailVerify"
+        android:layout_width="88dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="173dp"
+        android:background="@color/common_google_signin_btn_text_dark_default"
+        android:text="Verify Email"
+        android:textAllCaps="false"
+        android:textColor="#0000DD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFbaseAuthUemail"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/buttonFbaseAuthLogout"
+        android:layout_width="89dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="172dp"
+        android:background="#DD0000"
+        android:text="Logout"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonFabaseEmailVerify"
+        android:onClick="fbaseAuthLogout"
+        android:visibility="gone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".map_location.MapDirectionActivity"></activity>
+        <activity android:name=".firebase_service.BuildInAuthActivity"></activity>
+        <activity android:name=".firebase_service.CustomAuthActivity" />
+        <activity android:name=".map_location.MapDirectionActivity" />
         <activity android:name=".map_location.LocationPermissionActivity" />
         <activity android:name=".map_location.ClusterCurrentNearByPlacesActivity" />
 
@@ -87,7 +89,7 @@
             android:label="@string/title_activity_list_view"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".firebase_cloud_messaging.FCMActivity"
+            android:name=".firebase_service.FirebaseActivity"
             android:label="@string/title_activity_fcm"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -143,7 +145,7 @@
         <service
             android:name=".service.started_service.BackgroundAudioService"
             android:enabled="true" />
-        <service android:name=".firebase_cloud_messaging.MessageService">
+        <service android:name=".firebase_service.CloudMessaging">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
