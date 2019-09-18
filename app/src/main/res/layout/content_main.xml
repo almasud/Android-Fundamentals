@@ -236,22 +236,12 @@
             android:textSize="12sp"
             android:onClick="activityContentProvider"/>
 
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="@string/bound_service"
-            android:layout_weight="1"
-            android:textSize="13sp"
-            android:onClick="activityBoundService"/>
-
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="activityFCM"
-            android:text="@string/firebase_cloud_messaging"
+            android:onClick="activityFirebase"
+            android:text="@string/firebase_service"
             android:textAllCaps="false"
             android:textSize="12sp" />
 

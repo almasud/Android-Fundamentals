@@ -18,7 +18,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
@@ -26,9 +25,9 @@ import java.util.List;
 
 public class BuildInAuthActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
-    private ImageView iVFbaseUser;
-    private TextView tVFbaseUser, tVFbaseUEmail;
-    private Button buttonEmailVerify, buttonLogout;
+    private ImageView userIV;
+    private TextView userNameTV, userEmailTV, eVerityNoticeTV;
+    private Button emailVerifyBtn, addEventActivityBtn, logoutBtn;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
 
@@ -36,11 +35,13 @@ public class BuildInAuthActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_build_in_auth);
-        iVFbaseUser = findViewById(R.id.imageFbaseAuthUser);
-        tVFbaseUser = findViewById(R.id.textViewFbaseAuthUname);
-        tVFbaseUEmail = findViewById(R.id.textViewFbaseAuthUemail);
-        buttonEmailVerify = findViewById(R.id.buttonFabaseEmailVerify);
-        buttonLogout = findViewById(R.id.buttonFbaseAuthLogout);
+        userIV = findViewById(R.id.imageFbaseAuthUser);
+        userNameTV = findViewById(R.id.textViewFbaseAuthUname);
+        userEmailTV = findViewById(R.id.textViewFbaseAuthUemail);
+        eVerityNoticeTV = findViewById(R.id.textViewEmailverifyNotice);
+        emailVerifyBtn = findViewById(R.id.buttonFabaseEmailVerify);
+        addEventActivityBtn = findViewById(R.id.buttonAddEventActivity);
+        logoutBtn = findViewById(R.id.buttonFbaseAuthLogout);
 
         mAuth = FirebaseAuth.getInstance();
         // Check if user is signed in (non-null) and update UI accordingly.
@@ -77,22 +78,27 @@ public class BuildInAuthActivity extends AppCompatActivity {
 
     private void profileUI(FirebaseUser user) {
         // Visible the profile UIs
-        iVFbaseUser.setVisibility(View.VISIBLE);
-        tVFbaseUser.setVisibility(View.VISIBLE);
-        tVFbaseUEmail.setVisibility(View.VISIBLE);
-        buttonLogout.setVisibility(View.VISIBLE);
+        userIV.setVisibility(View.VISIBLE);
+        userNameTV.setVisibility(View.VISIBLE);
+        userEmailTV.setVisibility(View.VISIBLE);
+        logoutBtn.setVisibility(View.VISIBLE);
+
         // Set Name, email address, and profile photo Url into profile UIs
-        tVFbaseUser.setText("Name: " + user.getDisplayName());
-        tVFbaseUEmail.setText("Email: " + user.getEmail());
+        userNameTV.setText("Name: " + user.getDisplayName());
+        userEmailTV.setText("Email: " + user.getEmail());
         boolean isEmailVerified = user.isEmailVerified();
         if (user.getPhotoUrl() != null)
-            Picasso.get().load(user.getPhotoUrl()).into(iVFbaseUser);
+            Picasso.get().load(user.getPhotoUrl()).into(userIV);
+
         // Check email is verified or not
         if (isEmailVerified) {
-            buttonEmailVerify.setVisibility(View.INVISIBLE);
+            emailVerifyBtn.setVisibility(View.INVISIBLE);
+            eVerityNoticeTV.setVisibility(View.INVISIBLE);
+            addEventActivityBtn.setVisibility(View.VISIBLE);
         } else {
-            buttonEmailVerify.setVisibility(View.VISIBLE);
-            buttonEmailVerify.setOnClickListener(new View.OnClickListener() {
+            emailVerifyBtn.setVisibility(View.VISIBLE);
+            eVerityNoticeTV.setVisibility(View.VISIBLE);
+            emailVerifyBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -115,5 +121,9 @@ public class BuildInAuthActivity extends AppCompatActivity {
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                 }
             });
+    }
+
+    public void eventAddActivity(View view) {
+        startActivity(new Intent(this, EventActivity.class));
     }
 }

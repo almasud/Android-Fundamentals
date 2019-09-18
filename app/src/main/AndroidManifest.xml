@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".firebase_service.BuildInAuthActivity"></activity>
+        <activity android:name=".firebase_service.EventActivity"></activity>
+        <activity android:name=".firebase_service.BuildInAuthActivity" />
         <activity android:name=".firebase_service.CustomAuthActivity" />
         <activity android:name=".map_location.MapDirectionActivity" />
         <activity android:name=".map_location.LocationPermissionActivity" />

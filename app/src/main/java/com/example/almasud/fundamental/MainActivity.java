@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -39,7 +42,7 @@ import com.example.almasud.fundamental.sqlite_database.SQLiteDBActivity;
  * @author: Abdullah Almasud.
  */
 public class MainActivity extends AppCompatActivity {
-    Intent intent;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,8 +180,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // Firebase Cloud Messaging (FCM) Activity
-    public void activityFCM(View view) {
+    // Firebase Service Activity
+    public void activityFirebase(View view) {
         intent = new Intent(MainActivity.this, FirebaseActivity.class);
         startActivity(intent);
     }
@@ -194,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Show a dialog
-    public static void messageDialog(final Context context, String title, String message, final String toastMsg) {
+    public static void messageDialog(@NonNull Context context, @NonNull String title, @NonNull String message, @Nullable String toastMsg) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
         builder.setIcon(R.mipmap.ic_launcher);
@@ -211,4 +214,30 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
+    // Action dialog builder
+    public static AlertDialog.Builder actionDialogBuilder(
+            Context context, String title, String message, OnActionListener actionListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                actionListener.onAction();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        return builder;
+    }
+
+    // Custom dialog for an action
+    public interface OnActionListener {
+        void onAction();
+    }
 }

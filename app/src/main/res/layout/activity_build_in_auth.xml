@@ -8,16 +8,14 @@
 
     <TextView
         android:id="@+id/textViewFbaseAuthUemail"
-        android:layout_width="236dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="72dp"
+        android:layout_width="228dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="74dp"
         android:layout_marginTop="13dp"
-        android:layout_marginEnd="103dp"
         android:text="Email@example.com"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFbaseAuthUname"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@+id/textViewFbaseAuthUname" />
 
     <TextView
         android:id="@+id/textViewFbaseAuthUname"
@@ -25,13 +23,10 @@
         android:layout_height="24dp"
         android:layout_marginStart="72dp"
         android:layout_marginTop="19dp"
-        android:layout_marginEnd="106dp"
         android:text="Mr. Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageFbaseAuthUser"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@+id/imageFbaseAuthUser" />
 
     <ImageView
         android:id="@+id/imageFbaseAuthUser"
@@ -48,36 +43,58 @@
 
     <Button
         android:id="@+id/buttonFabaseEmailVerify"
-        android:layout_width="88dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="173dp"
+        android:layout_width="50dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="13dp"
         android:background="@color/common_google_signin_btn_text_dark_default"
-        android:text="Verify Email"
+        android:text="Verify"
         android:textAllCaps="false"
         android:textColor="#0000DD"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFbaseAuthUemail"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/textViewFbaseAuthUemail"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFbaseAuthUname" />
 
     <Button
         android:id="@+id/buttonFbaseAuthLogout"
         android:layout_width="89dp"
         android:layout_height="40dp"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="172dp"
+        android:layout_marginStart="141dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="181dp"
         android:background="#DD0000"
+        android:onClick="fbaseAuthLogout"
         android:text="Logout"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonFabaseEmailVerify"
-        android:onClick="fbaseAuthLogout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewEmailverifyNotice"
+        android:layout_width="231dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="8dp"
+        android:text="You need to verify your email to available any option."
+        android:textColor="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFbaseAuthUemail"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/buttonAddEventActivity"
+        android:layout_width="94dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="5dp"
+        android:onClick="eventAddActivity"
+        android:text="Add Event"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFbaseAuthUemail"
         android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

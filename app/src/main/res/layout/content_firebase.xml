@@ -35,19 +35,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_firebase"
-        android:onClick="activityCustomAuth"/>
+        android:onClick="activityCustomAuth" />
 
     <Button
         android:id="@+id/button_buildin_auth"
-        android:layout_width="182dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="111dp"
+        android:layout_width="157dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="120dp"
         android:layout_marginTop="13dp"
-        android:layout_marginEnd="118dp"
+        android:layout_marginEnd="134dp"
+        android:onClick="activityBuildInAuth"
         android:text="Build in Auth System"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_custom_auth"
-        android:onClick="activityBuildInAuth"/>
+        app:layout_constraintTop_toBottomOf="@+id/button_custom_auth" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

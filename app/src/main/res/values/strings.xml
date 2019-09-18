@@ -64,7 +64,7 @@
     <string name="broadcast_receiver">Broadcast Receiver</string>
     <string name="service">Service</string>
     <string name="bound_service">Bound Service</string>
-    <string name="firebase_cloud_messaging">Firebase Cloud Messaging</string>
+    <string name="firebase_service">Firebase Service</string>
     <string name="title_activity_fcm">FCMActivity</string>
     <string name="fcm_instance_id">FCM Instance ID</string>
     <string name="title_activity_list_view">ListViewActivity</string>

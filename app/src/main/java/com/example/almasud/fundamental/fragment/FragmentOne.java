@@ -41,7 +41,7 @@ public class FragmentOne extends Fragment {
         Log.e(TAG, "onAttach is called");
         // Assign the context of activity where this fragment is attached
         this.context = context;
-        // Assign the attached activity context who implements ClickListener
+        // Assign the attached activity context who implements OnClickListener
         myInterface = (MyInterface) context;
     }
 
