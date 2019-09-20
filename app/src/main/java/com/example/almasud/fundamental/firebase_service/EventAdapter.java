@@ -53,7 +53,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    listener.onItemClick(events.get(getAdapterPosition()));
+                    listener.onItemClick(events.get(getAdapterPosition()), view);
                     return false;
                 }
             });
@@ -68,6 +68,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     // Custom listener to send data from adapter
     public interface OnClickListener {
-        void onItemClick(Event event);
+        void onItemClick(Event event, View view);
     }
 }

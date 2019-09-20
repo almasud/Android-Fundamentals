@@ -1,8 +1,12 @@
 package com.example.almasud.fundamental.firebase_service;
 
 import android.os.Bundle;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,11 +27,13 @@ import java.util.ArrayList;
 
 public class EventActivity extends AppCompatActivity implements EventAdapter.OnClickListener {
     private EditText nameET, budgetET;
+    private Button createUpdateBtn;
     private RecyclerView eventRV;
     private DatabaseReference dbRef;
     private ArrayList<Event> events;
     private EventAdapter adapter;
     private FirebaseUser mUser;
+    private String updatedEventId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,7 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.OnC
         nameET = findViewById(R.id.editTextFbDbEventName);
         budgetET = findViewById(R.id.editTextFbDbBudget);
         eventRV = findViewById(R.id.recycleViewFbDbEvents);
+        createUpdateBtn = findViewById(R.id.buttonFbDbEventAdd);
 
         events = new ArrayList<>();
         adapter = new EventAdapter(this, events);
@@ -67,11 +74,19 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.OnC
     public void saveEvent(View view) {
         String name = nameET.getText().toString();
         double budget = Double.parseDouble(budgetET.getText().toString());
-
-        String eventId = dbRef.push().getKey(); // Generates a unique key
         String userId = mUser.getUid();
-        Event event = new Event(eventId, userId, name, budget);
-        dbRef.child(eventId).setValue(event);
+        // Code for update
+        if (updatedEventId != null) {
+            Event event = new Event(updatedEventId, userId, name, budget);
+            dbRef.child(updatedEventId).setValue(event);
+            updatedEventId = null;
+            createUpdateBtn.setText("Create Event");
+        } else {
+            // Code for create
+            String eventId = dbRef.push().getKey(); // Generates a unique key
+            Event event = new Event(eventId, userId, name, budget);
+            dbRef.child(eventId).setValue(event);
+        }
 
         // Clear input fields after submit
         nameET.setText("");
@@ -79,12 +94,32 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.OnC
     }
 
     @Override
-    public void onItemClick(Event event) {
-        MainActivity.actionDialogBuilder(this, "Are you sure?", "Want to delete the item", new MainActivity.OnActionListener() {
+    public void onItemClick(Event event, View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        MenuInflater inflater = popupMenu.getMenuInflater();
+        inflater.inflate(R.menu.menu_ud_operation, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
-            public void onAction() {
-                dbRef.child(event.getEventId()).removeValue();
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.menu_option_edit:
+                        updatedEventId = event.getEventId();
+                        nameET.setText(event.getEventName());
+                        budgetET.setText(String.valueOf(event.getBudget()));
+                        createUpdateBtn.setText("Update Event");
+                        break;
+                    case R.id.menu_option_delete:
+                        MainActivity.actionDialogBuilder(EventActivity.this, "Are you sure?", "Want to delete the item", new MainActivity.OnActionListener() {
+                            @Override
+                            public void onAction() {
+                                dbRef.child(event.getEventId()).removeValue();
+                            }
+                        }).show();
+                        break;
+                }
+                return false;
             }
-        }).show();
+        });
+        popupMenu.show();
     }
 }
