@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class EventActivity extends AppCompatActivity implements EventAdapter.OnClickListener {
     private EditText nameET, budgetET;
@@ -39,6 +40,9 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fbasedbevnet);
+        // This line should execute first for save database locally
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         nameET = findViewById(R.id.editTextFbDbEventName);
         budgetET = findViewById(R.id.editTextFbDbBudget);
         eventRV = findViewById(R.id.recycleViewFbDbEvents);
@@ -53,6 +57,7 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.OnC
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         dbRef = FirebaseDatabase.getInstance().getReference("Event");
+        dbRef.keepSynced(true);  // For also saved database locally;
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -60,6 +65,7 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.OnC
                 for (DataSnapshot data: dataSnapshot.getChildren()) {
                     Event event = data.getValue(Event.class);
                     events.add(event);
+                    Collections.reverse(events);
                     adapter.updateView(events);
                 }
             }
