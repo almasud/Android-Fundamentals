@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -30,7 +31,8 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.OnC
     private EditText nameET, budgetET;
     private Button createUpdateBtn;
     private RecyclerView eventRV;
-    private DatabaseReference dbRef;
+    private FirebaseDatabase database;
+    private DatabaseReference mDbRef;
     private ArrayList<Event> events;
     private EventAdapter adapter;
     private FirebaseUser mUser;
@@ -40,9 +42,6 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fbasedbevnet);
-        // This line should execute first for save database locally
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
         nameET = findViewById(R.id.editTextFbDbEventName);
         budgetET = findViewById(R.id.editTextFbDbBudget);
         eventRV = findViewById(R.id.recycleViewFbDbEvents);
@@ -56,16 +55,16 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.OnC
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        dbRef = FirebaseDatabase.getInstance().getReference("Event");
-        dbRef.keepSynced(true);  // For also saved database locally;
-        dbRef.addValueEventListener(new ValueEventListener() {
+        mDbRef = FirebaseDatabase.getInstance().getReference("Event");
+        mDbRef.keepSynced(true);  // For also saved database locally;
+        Query budgetQuery = mDbRef.orderByChild("budget");
+        budgetQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 events.clear();
                 for (DataSnapshot data: dataSnapshot.getChildren()) {
                     Event event = data.getValue(Event.class);
                     events.add(event);
-                    Collections.reverse(events);
                     adapter.updateView(events);
                 }
             }
@@ -84,14 +83,14 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.OnC
         // Code for update
         if (updatedEventId != null) {
             Event event = new Event(updatedEventId, userId, name, budget);
-            dbRef.child(updatedEventId).setValue(event);
+            mDbRef.child(updatedEventId).setValue(event);
             updatedEventId = null;
             createUpdateBtn.setText("Create Event");
         } else {
             // Code for create
-            String eventId = dbRef.push().getKey(); // Generates a unique key
+            String eventId = mDbRef.push().getKey(); // Generates a unique key
             Event event = new Event(eventId, userId, name, budget);
-            dbRef.child(eventId).setValue(event);
+            mDbRef.child(eventId).setValue(event);
         }
 
         // Clear input fields after submit
@@ -118,7 +117,7 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.OnC
                         MainActivity.actionDialogBuilder(EventActivity.this, "Are you sure?", "Want to delete the item", new MainActivity.OnActionListener() {
                             @Override
                             public void onAction() {
-                                dbRef.child(event.getEventId()).removeValue();
+                                mDbRef.child(event.getEventId()).removeValue();
                             }
                         }).show();
                         break;

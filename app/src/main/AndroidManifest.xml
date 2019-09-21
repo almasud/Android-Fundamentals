@@ -17,7 +17,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".firebase_service.FirebaseApp">
         <activity android:name=".firebase_service.build_in_auth.EventActivity"></activity>
         <activity android:name=".firebase_service.build_in_auth.BuildInAuthActivity" />
         <activity android:name=".firebase_service.CustomAuthActivity" />
