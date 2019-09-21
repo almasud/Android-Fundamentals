@@ -1,4 +1,4 @@
-package com.example.almasud.fundamental.firebase_service;
+package com.example.almasud.fundamental.firebase_service.build_in_auth;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.almasud.fundamental.R;
+import com.example.almasud.fundamental.firebase_service.FirebaseActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

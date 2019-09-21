@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".firebase_service.BuildInAuthActivity">
+    tools:context=".firebase_service.build_in_auth.BuildInAuthActivity">
 
     <TextView
         android:id="@+id/textViewFbaseAuthUemail"
