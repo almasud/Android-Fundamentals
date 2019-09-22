@@ -4,38 +4,38 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.almasud.fundamental.activity_cycle_and_intent.EmployeeBasicActivity;
 import com.example.almasud.fundamental.alert_dialog.DialogActivity;
 import com.example.almasud.fundamental.broadcast_receiver.BroadcastReceiverActivity;
 import com.example.almasud.fundamental.camera_app.CameraAppActivity;
+import com.example.almasud.fundamental.checkbox_radio_button_spinner.CheckboxRadioButtonSpinnerActivity;
 import com.example.almasud.fundamental.content_provider.ContentProviderActivity;
 import com.example.almasud.fundamental.event_handling.EventHandlingActivity;
 import com.example.almasud.fundamental.firebase_service.FirebaseActivity;
-import com.example.almasud.fundamental.checkbox_radio_button_spinner.CheckboxRadioButtonSpinnerActivity;
 import com.example.almasud.fundamental.fragment.FragmentActivity;
+import com.example.almasud.fundamental.http_api.HttpApiActivity;
 import com.example.almasud.fundamental.list_and_recycler_view.ListAndRecyclerViewActivity;
 import com.example.almasud.fundamental.map_location.MapActivity;
 import com.example.almasud.fundamental.menu.MenuActivity;
 import com.example.almasud.fundamental.navigation.TabLayoutViewPagerActivity;
 import com.example.almasud.fundamental.processes_and_threads.ProcessThreadActivity;
-import com.example.almasud.fundamental.http_api.HttpApiActivity;
 import com.example.almasud.fundamental.searchable_interface.SearchableInterfaceActivity;
 import com.example.almasud.fundamental.service.ServiceActivity;
 import com.example.almasud.fundamental.shared_preference.SharedPreferenceActivity;
 import com.example.almasud.fundamental.sqlite_database.SQLiteDBActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * This activity is the launcher activity.
@@ -159,15 +159,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, TabLayoutViewPagerActivity.class));
     }
 
-
-
-
-    // Broadcast Receiver Activity
-    public void activityBroadCast(View view) {
-        intent = new Intent(MainActivity.this, BroadcastReceiverActivity.class);
-        startActivity(intent);
-    }
-
     // Service Activity
     public void activityService(View view) {
         intent = new Intent(MainActivity.this, ServiceActivity.class);
@@ -177,6 +168,14 @@ public class MainActivity extends AppCompatActivity {
     // Content Provider Activity
     public void activityContentProvider(View view) {
         intent = new Intent(MainActivity.this, ContentProviderActivity.class);
+        startActivity(intent);
+    }
+
+
+
+    // Broadcast Receiver Activity
+    public void activityBroadCast(View view) {
+        intent = new Intent(MainActivity.this, BroadcastReceiverActivity.class);
         startActivity(intent);
     }
 

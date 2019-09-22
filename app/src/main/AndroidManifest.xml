@@ -12,14 +12,23 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".firebase_service.FirebaseApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name=".firebase_service.FirebaseApp">
-        <activity android:name=".firebase_service.build_in_auth.EventActivity"></activity>
+        android:theme="@style/AppTheme">
+        <activity android:name=".content_provider.EventProviderActivity"></activity>
+        <activity android:name=".content_provider.ContentProviderActivity" />
+
+        <provider
+            android:name=".content_provider.EventProvider"
+            android:authorities="com.example.almasud.fundamental.content_provider"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".firebase_service.build_in_auth.EventActivity" />
         <activity android:name=".firebase_service.build_in_auth.BuildInAuthActivity" />
         <activity android:name=".firebase_service.CustomAuthActivity" />
         <activity android:name=".map_location.MapDirectionActivity" />
@@ -99,7 +108,7 @@
             android:label="@string/title_activity_sqlite"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".content_provider.ContentProviderActivity"
+            android:name=".content_provider.ContactProviderActivity"
             android:label="@string/title_activity_content_provider"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
