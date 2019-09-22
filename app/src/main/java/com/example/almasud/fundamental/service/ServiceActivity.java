@@ -70,12 +70,10 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         if (v == startPlyBtn) {
             startService(playServiceIntent);
-            // Exit from current activity
-            finish();
+            finish(); // Exit from current activity
         } else if (v == stopPlayBtn) {
             stopService(playServiceIntent);
-            // Exit from current activity
-            finish();
+            finish(); // Exit from current activity
         }
     }
 

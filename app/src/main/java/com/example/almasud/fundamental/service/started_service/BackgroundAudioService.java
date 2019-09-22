@@ -4,6 +4,8 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 
 import com.example.almasud.fundamental.R;
@@ -20,7 +22,8 @@ public class BackgroundAudioService extends Service implements MediaPlayer.OnCom
 
     @Override
     public void onCreate() {
-        mediaPlayer = MediaPlayer.create(this, R.raw.jodi_tumi_chara_prithibir_buke);
+        mediaPlayer = MediaPlayer.create(this, R.raw.ekhono_majhe_majhe);
+        Log.e("BackgroudAudioService", "Media Player Started");
         mediaPlayer.setOnCompletionListener(this);
     }
 
@@ -28,6 +31,7 @@ public class BackgroundAudioService extends Service implements MediaPlayer.OnCom
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (!mediaPlayer.isPlaying()) {
             mediaPlayer.start();
+            Log.e("BackgroudAudioService", "Media Player playing");
         }
         return START_STICKY;
     }

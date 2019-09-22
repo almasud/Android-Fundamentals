@@ -7,9 +7,14 @@ import android.os.IBinder;
 
 import java.util.Random;
 
+/**
+ * A bound service is the server in a client-server interface. It allows components
+ * (such as activities) to bind to the service, send requests, receive responses, and perform
+ * interprocess communication (IPC). A bound service typically lives only while it serves
+ * another application component and does not run in the background indefinitely.
+ */
+
 public class MyBoundService extends Service {
-    public MyBoundService() {
-    }
 
     public class MyLocalBinder extends Binder {
         public MyBoundService getService() {

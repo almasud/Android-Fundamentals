@@ -192,7 +192,23 @@
             android:textAllCaps="false"
             android:textSize="12sp" />
 
-</LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/service"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            android:onClick="activityService"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -219,15 +235,6 @@
             android:text="@string/broadcast_receiver"
             android:textAllCaps="false"
             android:textSize="12sp" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/service"
-            android:textAllCaps="false"
-            android:textSize="12sp"
-            android:onClick="activityService"/>
 
     </LinearLayout>
 
