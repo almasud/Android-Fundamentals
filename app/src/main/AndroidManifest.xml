@@ -19,11 +19,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service
-            android:name=".map_location.GeofencingIntentService"
-            android:exported="false">
-        </service>
 
+        <receiver
+            android:name=".map_location.GeofenceBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
         <activity android:name=".map_location.LocPermiGeofenceActivity" />
         <activity android:name=".map_location.GeofenceActivity" />
         <activity android:name=".content_provider.EventProviderActivity" />

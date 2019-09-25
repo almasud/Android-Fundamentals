@@ -1,8 +1,9 @@
 package com.example.almasud.fundamental.map_location;
 
-import android.app.IntentService;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.RingtoneManager;
@@ -19,28 +20,30 @@ import com.google.android.gms.location.GeofencingEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * An {@link IntentService} subclass for handling asynchronous task requests in
- * a service on a separate handler thread.
- * <p>
- * TODO: Customize class - update intent actions, extra parameters and static
- * helper methods.
- */
-public class GeofencingIntentService extends IntentService {
-
-    public GeofencingIntentService() {
-        super("GeofencingIntentService");
-    }
+public class GeofenceBroadcastReceiver extends BroadcastReceiver {
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    public void onReceive(Context context, Intent intent) {
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
         if (geofencingEvent.hasError()) {
-            Log.d("GeofencingService", "GeofencingEvent error " + geofencingEvent.getErrorCode());
-        } else {
-            int transitionType = geofencingEvent.getGeofenceTransition();
+            Log.d("GeofenceBReceiver", "GeofencingEvent error " + geofencingEvent.getErrorCode());
+            return;
+        }
+
+        // Get the transition type.
+        int geofenceTransition = geofencingEvent.getGeofenceTransition();
+
+        // Test that the reported transition was of interest.
+        if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER ||
+                geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
+
+            // Get the geofences that were triggered. A single event can trigger
+            // multiple geofences.
+            List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
+
+            // Get the transition details as a String.
             String transitionTypeString = "";
-            switch (transitionType) {
+            switch (geofenceTransition) {
                 case Geofence.GEOFENCE_TRANSITION_ENTER:
                     transitionTypeString = "Entered";
                     break;
@@ -50,19 +53,22 @@ public class GeofencingIntentService extends IntentService {
             }
 
             List<String> triggeredGeofencesIds = new ArrayList<>();
-            for (Geofence geofence: geofencingEvent.getTriggeringGeofences()) {
+            for (Geofence geofence: triggeringGeofences) {
                 triggeredGeofencesIds.add(geofence.getRequestId());
             }
 
             String notificationString = transitionTypeString + ": " + TextUtils
                     .join(", ", triggeredGeofencesIds);
-            sendNotification(notificationString);
+            sendNotification(context, notificationString);
+        } else {
+            // Log the error.
+            Log.e("GeofenceBReceiver", "Invalid Transition Type.");
         }
     }
 
-    private void sendNotification(String notificationString) {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        String NOTIFICATION_CHANNEL_ID = "com.example.almasud.fundamental.geofence";
+    private void sendNotification(Context context, String notificationString) {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        String NOTIFICATION_CHANNEL_ID = "com.example.almasud.fundamental.map_location.geofence";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(
                     NOTIFICATION_CHANNEL_ID, "GeoFence", NotificationManager.IMPORTANCE_DEFAULT);
@@ -77,7 +83,7 @@ public class GeofencingIntentService extends IntentService {
             }
         }
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
         builder.setAutoCancel(true);
         /* Adaptive icons are a new thing introduced in Android Oreo. They can change
            the icon shape, based on the device’s own preferences. To create an adaptive

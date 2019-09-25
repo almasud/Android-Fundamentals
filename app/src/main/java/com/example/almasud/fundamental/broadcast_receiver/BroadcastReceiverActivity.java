@@ -75,7 +75,7 @@ public class BroadcastReceiverActivity extends AppCompatActivity implements View
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            MainActivity.messageDialog(this,"Success", "Your permission is successfully granted.\nNow you can show your current location.", null);
+            MainActivity.messageDialog(this,"Success", "Your permission is successfully granted.\nNow your SMS is captured by this app.", null);
         }
     }
 }

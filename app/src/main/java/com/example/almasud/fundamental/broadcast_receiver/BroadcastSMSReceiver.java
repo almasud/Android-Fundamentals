@@ -21,7 +21,7 @@ public class BroadcastSMSReceiver extends BroadcastReceiver {
 
             if (bundle != null) {
              /*
-              Most smartphones and mobile phones support what is known as
+              Most smart phones and mobile phones support what is known as
               "PDU mode" for sending and receiving SMS. PDU (protocol data unit)
               contains not only the SMS message, but also metadata about the SMS
               message such as text encoding, the sender, SMS service center address,

@@ -22,19 +22,21 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GeofenceActivity extends AppCompatActivity {
-    private GeofencingClient mClient;
-    private PendingIntent mPendingIntent;
-    private ArrayList<Geofence> mGeofences;
     private Button geofenceToggleBtn;
     private boolean isMonitor;
+
+    private GeofencingClient geofencingClient;
+    private List<Geofence> geofenceList;
+    private PendingIntent geofencePendingIntent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,69 +44,82 @@ public class GeofenceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_geofence);
         geofenceToggleBtn = findViewById(R.id.buttonGeofenceMonitoring);
 
-        mClient = LocationServices.getGeofencingClient(GeofenceActivity.this);
-        mGeofences = new ArrayList<>();
-        Geofence geofence = new Geofence.Builder()
-                .setRequestId("Square_Hospital")
-                .setCircularRegion(23.753711, 90.381158, 100)
-                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT)
-                .setExpirationDuration(Geofence.NEVER_EXPIRE)
-                .build();
-        mGeofences.add(geofence);
+        //  Instantiate of the Geofencing client to access location APIs
+        geofencingClient = LocationServices.getGeofencingClient(this);
+        // Create and add geofences
+        geofenceList = new ArrayList<>();
+        geofenceList.add(new Geofence.Builder()
+            // Set the request ID of the geofence. This is a string to identify this geofence.
+            .setRequestId("DIU")
+            .setCircularRegion(23.7529262,90.3815516, 100)
+            .setExpirationDuration(Geofence.NEVER_EXPIRE)
+            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
+                    Geofence.GEOFENCE_TRANSITION_EXIT)
+            .build());
     }
 
+
+    // Specify geofences and initial triggers
     private GeofencingRequest getGeofencingRequest() {
         GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
-        builder.addGeofences(mGeofences);
         builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
+        builder.addGeofences(geofenceList);
         return builder.build();
     }
 
-    private PendingIntent getPendingIntent() {
-        if (mPendingIntent != null) {
-            return mPendingIntent;
-        } else {
-            Intent intent = new Intent(this, GeofencingIntentService.class);
-            mPendingIntent = PendingIntent.getService(this, 101, intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-            return mPendingIntent;
+    // Define a broadcast receiver for geofence transitions
+    private PendingIntent getGeofencePendingIntent() {
+        // Reuse the PendingIntent if we already have it.
+        if (geofencePendingIntent != null) {
+            return geofencePendingIntent;
         }
+        Intent intent = new Intent(this, GeofenceBroadcastReceiver.class);
+        // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
+        // calling addGeofences() and removeGeofences().
+        geofencePendingIntent = PendingIntent.getBroadcast(this, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        return geofencePendingIntent;
     }
 
+    // Start geofence monitoring
     private void startGeoFencing() {
-        mClient.addGeofences(getGeofencingRequest(), getPendingIntent()).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
+        // Add geofences
+        geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
+            .addOnSuccessListener(this, new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    // Geofences added
                     Toast.makeText(GeofenceActivity.this, "Successfully Geofencing added.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(GeofenceActivity.this, "Failed to add Geofencing.", Toast.LENGTH_SHORT).show();
                 }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e("GeofencingActivity", e.getMessage());
-            }
-        });
+            })
+            .addOnFailureListener(this, new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    // Failed to add geofences
+                    Toast.makeText(GeofenceActivity.this, "Failed to add Geofencing.", Toast.LENGTH_SHORT).show();
+                    Log.e("GeofencingActivity", e.getMessage());
+                }
+            });
     }
 
+    // Stop geofence monitoring
     private void stopGeoFencing() {
-        mClient.removeGeofences(getPendingIntent()).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(GeofenceActivity.this, "Successfully Geofencing removed.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(GeofenceActivity.this, "Failed to remove Geofencing.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e("GeofencingActivity", e.getMessage());
-            }
-        });
+        geofencingClient.removeGeofences(getGeofencePendingIntent())
+                .addOnSuccessListener(this, new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Geofences removed
+                        Toast.makeText(GeofenceActivity.this, "Successfully Geofencing removed.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Failed to remove geofences
+                        Toast.makeText(GeofenceActivity.this, "Failed to remove Geofencing.", Toast.LENGTH_SHORT).show();
+                        Log.e("GeofencingActivity", e.getMessage());
+                    }
+                });
     }
 
     // Need to location access and GPS turn ON.
@@ -146,12 +161,5 @@ public class GeofenceActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (isMonitor)
-            stopGeoFencing();
     }
 }
