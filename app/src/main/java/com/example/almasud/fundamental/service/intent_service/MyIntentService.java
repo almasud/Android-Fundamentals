@@ -17,7 +17,7 @@ public class MyIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         /*
          Note: We need not stop this service because it's stop itself and need not
-         create a new thread for long background processing because this method codes
+         create a new thread for long background processing because this method
          execute in background thread. Only one component or activity can start
          intent service.
          */

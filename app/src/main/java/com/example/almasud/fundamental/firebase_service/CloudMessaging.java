@@ -71,14 +71,14 @@ public class CloudMessaging extends FirebaseMessagingService {
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(
                 Context.NOTIFICATION_SERVICE);
-        String NOTIFICATION_CHANNEL_ID = "com.example.almasud.fundamental.test";
+        String NOTIFICATION_CHANNEL_ID = "com.example.almasud.fundamental.fbasecloud";
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID,
-                    "Notification", NotificationManager.IMPORTANCE_DEFAULT);
+                    "Cloud Message", NotificationManager.IMPORTANCE_DEFAULT);
 
-            notificationChannel.setDescription("ARM Channel");
+            notificationChannel.setDescription("Cloud Message Channel");
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.BLUE);
             notificationChannel.setVibrationPattern(new long[] {0, 1000, 500, 1000});

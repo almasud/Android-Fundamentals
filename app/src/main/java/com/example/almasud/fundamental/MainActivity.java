@@ -159,6 +159,16 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, TabLayoutViewPagerActivity.class));
     }
 
+    // Searchable Interface Activity
+    public void activitySearchableInterface(View view) {
+        startActivity(new Intent(this, SearchableInterfaceActivity.class));
+    }
+
+    // Camera application using file system Activity
+    public void cameraAppActivity(View view) {
+        startActivity(new Intent(this, CameraAppActivity.class));
+    }
+
     // Service Activity
     public void activityService(View view) {
         intent = new Intent(MainActivity.this, ServiceActivity.class);
@@ -171,8 +181,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
     // Broadcast Receiver Activity
     public void activityBroadCast(View view) {
         intent = new Intent(MainActivity.this, BroadcastReceiverActivity.class);
@@ -183,16 +191,6 @@ public class MainActivity extends AppCompatActivity {
     public void activityFirebase(View view) {
         intent = new Intent(MainActivity.this, FirebaseActivity.class);
         startActivity(intent);
-    }
-
-    // Searchable Interface Activity
-    public void activitySearchableInterface(View view) {
-        startActivity(new Intent(this, SearchableInterfaceActivity.class));
-    }
-
-    // Camera application using file system Activity
-    public void cameraAppActivity(View view) {
-        startActivity(new Intent(this, CameraAppActivity.class));
     }
 
     // Show a dialog

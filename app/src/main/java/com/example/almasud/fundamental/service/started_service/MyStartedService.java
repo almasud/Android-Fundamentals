@@ -46,7 +46,7 @@ public class MyStartedService extends Service {
         Log.e(TAG, "Service Id: " + startId);
         /*
          Note: We can start a new thread for long background processing because
-         this method codes execute in main thread. Many activity or component can
+         this method execute in main thread. Many activity or component can
          start the same started service individually.
          */
 //        stopSelf();  // After finish the work of service it should stop

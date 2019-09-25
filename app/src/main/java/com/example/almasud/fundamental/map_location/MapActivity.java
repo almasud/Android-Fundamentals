@@ -31,4 +31,9 @@ public class MapActivity extends AppCompatActivity {
     public void activityMapDirection(View view) {
         startActivity(new Intent(this, MapDirectionActivity.class));
     }
+
+    // Geofencing Activity
+    public void activityGeofence(View view) {
+        startActivity(new Intent(this, LocPermiGeofenceActivity.class));
+    }
 }

@@ -5,14 +5,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.provider.Settings;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.almasud.fundamental.R;
 import com.karumi.dexter.Dexter;
@@ -22,7 +23,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-public class LocationPermissionActivity extends AppCompatActivity {
+public class LocPermiGeofenceActivity extends AppCompatActivity {
     private Button grantBtn;
 
     @Override
@@ -31,7 +32,7 @@ public class LocationPermissionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location_permission);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            startActivity(new Intent(LocationPermissionActivity.this, ClusterCurrentNearByPlacesActivity.class));
+            startActivity(new Intent(LocPermiGeofenceActivity.this, GeofenceActivity.class));
             finish();
         }
 
@@ -39,19 +40,19 @@ public class LocationPermissionActivity extends AppCompatActivity {
         grantBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dexter.withActivity(LocationPermissionActivity.this)
+                Dexter.withActivity(LocPermiGeofenceActivity.this)
                         .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                         .withListener(new PermissionListener() {
                             @Override
                             public void onPermissionGranted(PermissionGrantedResponse response) {
-                                startActivity(new Intent(LocationPermissionActivity.this, ClusterCurrentNearByPlacesActivity.class));
+                                startActivity(new Intent(LocPermiGeofenceActivity.this, GeofenceActivity.class));
                                 finish();
                             }
 
                             @Override
                             public void onPermissionDenied(PermissionDeniedResponse response) {
                                 if (response.isPermanentlyDenied()) {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(LocationPermissionActivity.this);
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(LocPermiGeofenceActivity.this);
                                     builder.setTitle("Permission Denied.")
                                             .setMessage("Permission to access device location is permanently denied. You can go to settings to allow permission.")
                                             .setNegativeButton("Cancel", null)
@@ -65,7 +66,7 @@ public class LocationPermissionActivity extends AppCompatActivity {
                                                 }
                                             }).show();
                                 } else {
-                                    Toast.makeText(LocationPermissionActivity.this, "Permission denied.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LocPermiGeofenceActivity.this, "Permission denied.", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
