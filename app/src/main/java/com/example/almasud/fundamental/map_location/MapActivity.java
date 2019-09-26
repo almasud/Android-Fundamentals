@@ -24,16 +24,11 @@ public class MapActivity extends AppCompatActivity {
         startActivity(new Intent(this, MapMarkerActivity.class));
     }
 
-    public void activityClusterCurrentNearByPlaces(View view) {
+    public void activityClusterCurrentNearByPlacesGeofence(View view) {
         startActivity(new Intent(this, LocationPermissionActivity.class));
     }
 
     public void activityMapDirection(View view) {
         startActivity(new Intent(this, MapDirectionActivity.class));
-    }
-
-    // Geofencing Activity
-    public void activityGeofence(View view) {
-        startActivity(new Intent(this, LocPermiGeofenceActivity.class));
     }
 }

@@ -23,11 +23,11 @@
         android:textAllCaps="false"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="242dp"
         android:layout_height="wrap_content"
-        android:text="Cluster, Current and NearBy Places"
-        android:onClick="activityClusterCurrentNearByPlaces"
-        android:textAllCaps="false"/>
+        android:onClick="activityClusterCurrentNearByPlacesGeofence"
+        android:text="Cluster, Current, NearBy Places and Geofence Monitoring"
+        android:textAllCaps="false" />
 
     <Button
         android:layout_width="wrap_content"
@@ -35,12 +35,5 @@
         android:text="Map Direction"
         android:textAllCaps="false"
         android:onClick="activityMapDirection"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:text="Geofencing"
-        android:onClick="activityGeofence"/>
 
 </LinearLayout>

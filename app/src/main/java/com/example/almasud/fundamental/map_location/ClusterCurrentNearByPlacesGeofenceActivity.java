@@ -1,5 +1,6 @@
 package com.example.almasud.fundamental.map_location;
 
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -25,6 +26,9 @@ import com.example.almasud.fundamental.R;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.Geofence;
+import com.google.android.gms.location.GeofencingClient;
+import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -62,24 +66,30 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ClusterCurrentNearByPlacesActivity extends AppCompatActivity implements OnMapReadyCallback {
-
+public class ClusterCurrentNearByPlacesGeofenceActivity extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private FusedLocationProviderClient mLocationProviderClient;
     private PlacesClient mPlacesClient;
     private List<AutocompletePrediction> predictionList;
     private Location mLastKnownLocation;
     private LocationCallback mLocationCallback;
-
+    private final float DEFAULT_ZOOM = 17;
+    private final int GPS_ON_REQUEST = 1;
+    // For material search bar.
     private MaterialSearchBar materialSearchBar;
     private View mapView;
     private Button findBtn;
-
-    private final float DEFAULT_ZOOM = 17;
-
+    // For Clustering
     private List<MarkerItem> mItems;
     private ClusterManager<MarkerItem> mClusterManager;
     private Double latitude, longitude;
+    // For Geofence Monitoring
+    public static final String GEOFENCE_REQUEST_ID = "SquareHospital";
+    private GeofencingClient geofencingClient;
+    private List<Geofence> geofenceList;
+    private PendingIntent geofencePendingIntent;
+    private GeofencingSessionManager sessionManager;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +138,7 @@ public class ClusterCurrentNearByPlacesActivity extends AppCompatActivity implem
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                final FindAutocompletePredictionsRequest predictionsRequest = FindAutocompletePredictionsRequest
+                FindAutocompletePredictionsRequest predictionsRequest = FindAutocompletePredictionsRequest
                         .builder().setCountry("bd").setTypeFilter(TypeFilter.ADDRESS)
                         .setSessionToken(sessionToken).setQuery(s.toString()).build();
                 mPlacesClient.findAutocompletePredictions(predictionsRequest).addOnCompleteListener(new OnCompleteListener<FindAutocompletePredictionsResponse>() {
@@ -149,7 +159,7 @@ public class ClusterCurrentNearByPlacesActivity extends AppCompatActivity implem
                                 }
                             }
                         } else {
-                            Log.e("My Tag", "Prediction task is unsuccessful");
+                            Log.e("Search Places", "Prediction task is unsuccessful");
                         }
                     }
                 });
@@ -179,12 +189,14 @@ public class ClusterCurrentNearByPlacesActivity extends AppCompatActivity implem
                                 // Code for marker
                                 mMap.addMarker(new MarkerOptions().position(latLngOfPlace)
                                         .title(place.getName()).snippet(place.getAddress()));
-                                mMap.setOnMapLongClickListener(latLng -> {
-                                    mItems.add(new MarkerItem(latLng));
-                                    mClusterManager.addItems(mItems);
-                                    mClusterManager.cluster();
+                                mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+                                    @Override
+                                    public void onMapLongClick(LatLng latLng) {
+                                        mItems.add(new MarkerItem(latLng));
+                                        mClusterManager.addItems(mItems);
+                                        mClusterManager.cluster();
+                                    }
                                 });
-
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngOfPlace, DEFAULT_ZOOM));
                             }
                         }).addOnFailureListener(e -> {
@@ -222,6 +234,22 @@ public class ClusterCurrentNearByPlacesActivity extends AppCompatActivity implem
             nearByPlaces.execute(transferData);
             Toast.makeText(this, "Searching for nearby restaurants...", Toast.LENGTH_SHORT).show();
         });
+
+        // Code for Geofence Monitoring
+        //  Instantiate of the Geofencing client to access location APIs
+        geofencingClient = LocationServices.getGeofencingClient(this);
+        // Create and add geofences
+        geofenceList = new ArrayList<>();
+        geofenceList.add(new Geofence.Builder()
+            // Set the request ID of the geofence. This is a string to identify this geofence.
+            .setRequestId(GEOFENCE_REQUEST_ID)
+            .setCircularRegion(23.7500926,90.3847146, 100)
+            .setExpirationDuration(Geofence.NEVER_EXPIRE)
+            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
+                    Geofence.GEOFENCE_TRANSITION_EXIT)
+            .build());
+        // Shared preference for geofence monitoring
+        sessionManager = new GeofencingSessionManager(this);
     }
 
     private String getUrl(Double latitude, Double longitude, String placeType) {
@@ -243,7 +271,7 @@ public class ClusterCurrentNearByPlacesActivity extends AppCompatActivity implem
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
         // Code for marker clustering
-        mClusterManager = new ClusterManager<>(ClusterCurrentNearByPlacesActivity.this, mMap);
+        mClusterManager = new ClusterManager<>(ClusterCurrentNearByPlacesGeofenceActivity.this, mMap);
         mMap.setOnCameraIdleListener(mClusterManager);
         mMap.setOnMarkerClickListener(mClusterManager);
 
@@ -255,7 +283,6 @@ public class ClusterCurrentNearByPlacesActivity extends AppCompatActivity implem
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP,0);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-
             layoutParams.setMargins(0, 0, 40, 240);
 
             // Check if GPS is enabled or not and request the user to enabled it
@@ -266,9 +293,9 @@ public class ClusterCurrentNearByPlacesActivity extends AppCompatActivity implem
 
             LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
 
-            SettingsClient settingsClient= LocationServices.getSettingsClient(ClusterCurrentNearByPlacesActivity.this);
+            SettingsClient settingsClient= LocationServices.getSettingsClient(ClusterCurrentNearByPlacesGeofenceActivity.this);
             Task<LocationSettingsResponse> task = settingsClient.checkLocationSettings(builder.build());
-            task.addOnSuccessListener(ClusterCurrentNearByPlacesActivity.this, new OnSuccessListener<LocationSettingsResponse>() {
+            task.addOnSuccessListener(ClusterCurrentNearByPlacesGeofenceActivity.this, new OnSuccessListener<LocationSettingsResponse>() {
                 @Override
                 public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
                     // Device location with high accuracy is already enabled
@@ -277,13 +304,13 @@ public class ClusterCurrentNearByPlacesActivity extends AppCompatActivity implem
                 }
             });
 
-            task.addOnFailureListener(ClusterCurrentNearByPlacesActivity.this, new OnFailureListener() {
+            task.addOnFailureListener(ClusterCurrentNearByPlacesGeofenceActivity.this, new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     if (e instanceof ResolvableApiException) {
                         ResolvableApiException apiException = (ResolvableApiException) e;
                         try {
-                            apiException.startResolutionForResult(ClusterCurrentNearByPlacesActivity.this, 11);
+                            apiException.startResolutionForResult(ClusterCurrentNearByPlacesGeofenceActivity.this, GPS_ON_REQUEST);
                         } catch (IntentSender.SendIntentException ex) {
                             ex.printStackTrace();
                         }
@@ -304,7 +331,7 @@ public class ClusterCurrentNearByPlacesActivity extends AppCompatActivity implem
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 11) {
+        if (requestCode == GPS_ON_REQUEST) {
             if (resultCode == RESULT_OK) {
                 // Device location with high accuracy enabled is confirmed
                 // Get device location
@@ -367,7 +394,7 @@ public class ClusterCurrentNearByPlacesActivity extends AppCompatActivity implem
                         mLocationProviderClient.requestLocationUpdates(locationRequest, mLocationCallback, null);
                     }
                 } else {
-                    Toast.makeText(ClusterCurrentNearByPlacesActivity.this, "Unable to get last location", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ClusterCurrentNearByPlacesGeofenceActivity.this, "Unable to get last location", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -376,6 +403,13 @@ public class ClusterCurrentNearByPlacesActivity extends AppCompatActivity implem
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.map_menu, menu);
+        // Menu initialization
+        this.menu = menu;
+        if (!sessionManager.isMonitoring()) {
+            menu.findItem(R.id.geofenceMonitor).setTitle("Start Monitoring");
+        } else {
+            menu.findItem(R.id.geofenceMonitor).setTitle("Stop Monitoring");
+        }
         return true;
     }
 
@@ -384,6 +418,17 @@ public class ClusterCurrentNearByPlacesActivity extends AppCompatActivity implem
         switch (item.getItemId()) {
             case R.id.currentPlaces:
                 showCurrentPlaces();
+                break;
+            case R.id.geofenceMonitor:
+                if (!sessionManager.isMonitoring()) {
+                    sessionManager.createMonitorSession();
+                    startGeoFencing();
+                    menu.findItem(R.id.geofenceMonitor).setTitle("Stop Monitoring");
+                } else {
+                    sessionManager.removeMonitorSession();
+                    stopGeoFencing();
+                    menu.findItem(R.id.geofenceMonitor).setTitle("Start Monitoring");
+                }
                 break;
         }
         return true;
@@ -443,5 +488,68 @@ public class ClusterCurrentNearByPlacesActivity extends AppCompatActivity implem
         };
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setItems(names, listener).show();
+    }
+
+    // Specify geofences and initial triggers
+    private GeofencingRequest getGeofencingRequest() {
+        GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
+        builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
+        builder.addGeofences(geofenceList);
+        return builder.build();
+    }
+
+    // Define a broadcast receiver for geofence transitions
+    private PendingIntent getGeofencePendingIntent() {
+        // Reuse the PendingIntent if we already have it.
+        if (geofencePendingIntent != null) {
+            return geofencePendingIntent;
+        }
+        Intent intent = new Intent(this, GeofenceBroadcastReceiver.class);
+        // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
+        // calling addGeofences() and removeGeofences().
+        geofencePendingIntent = PendingIntent.getBroadcast(this, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        return geofencePendingIntent;
+    }
+
+    // Start geofence monitoring
+    private void startGeoFencing() {
+        // Add geofences
+        geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
+            .addOnSuccessListener(this, new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    // Geofences added
+                    Toast.makeText(ClusterCurrentNearByPlacesGeofenceActivity.this, "Successfully Geofencing added.", Toast.LENGTH_SHORT).show();
+                }
+            })
+            .addOnFailureListener(this, new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    // Failed to add geofences
+                    Toast.makeText(ClusterCurrentNearByPlacesGeofenceActivity.this, "Failed to add Geofencing.", Toast.LENGTH_SHORT).show();
+                    Log.e("GeofencingActivity", e.getMessage());
+                }
+            });
+    }
+
+    // Stop geofence monitoring
+    private void stopGeoFencing() {
+        geofencingClient.removeGeofences(getGeofencePendingIntent())
+            .addOnSuccessListener(this, new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    // Geofences removed
+                    Toast.makeText(ClusterCurrentNearByPlacesGeofenceActivity.this, "Successfully Geofencing removed.", Toast.LENGTH_SHORT).show();
+                }
+            })
+            .addOnFailureListener(this, new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    // Failed to remove geofences
+                    Toast.makeText(ClusterCurrentNearByPlacesGeofenceActivity.this, "Failed to remove Geofencing.", Toast.LENGTH_SHORT).show();
+                    Log.e("GeofencingActivity", e.getMessage());
+                }
+            });
     }
 }

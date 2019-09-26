@@ -24,8 +24,7 @@
             android:name=".map_location.GeofenceBroadcastReceiver"
             android:enabled="true"
             android:exported="true"></receiver>
-        <activity android:name=".map_location.LocPermiGeofenceActivity" />
-        <activity android:name=".map_location.GeofenceActivity" />
+
         <activity android:name=".content_provider.EventProviderActivity" />
         <activity android:name=".content_provider.ContentProviderActivity" />
 
@@ -40,7 +39,7 @@
         <activity android:name=".firebase_service.CustomAuthActivity" />
         <activity android:name=".map_location.MapDirectionActivity" />
         <activity android:name=".map_location.LocationPermissionActivity" />
-        <activity android:name=".map_location.ClusterCurrentNearByPlacesActivity" />
+        <activity android:name=".map_location.ClusterCurrentNearByPlacesGeofenceActivity" />
 
         <service
             android:name=".service.bound_service.MyBoundService"

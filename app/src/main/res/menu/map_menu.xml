@@ -5,5 +5,8 @@
     <item android:title="Current Places"
         android:id="@+id/currentPlaces"
         app:showAsAction="never"/>
+    <item android:title="Start Monitoring"
+        android:id="@+id/geofenceMonitor"
+        app:showAsAction="never"/>
 
 </menu>

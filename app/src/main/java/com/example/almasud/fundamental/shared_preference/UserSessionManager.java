@@ -80,6 +80,7 @@ class UserSessionManager {
 
     // Check for user login
     boolean isUserLoggedIn(){
+        //  If IS_USER_LOGIN preference does not exist it returns false
         return pref.getBoolean(IS_USER_LOGIN, false);
     }
 

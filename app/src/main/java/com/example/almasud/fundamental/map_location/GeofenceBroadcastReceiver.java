@@ -42,6 +42,11 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
             List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
 
             // Get the transition details as a String.
+            List<String> triggeredGeofencesIds = new ArrayList<>();
+            for (Geofence geofence: triggeringGeofences) {
+                triggeredGeofencesIds.add(geofence.getRequestId());
+            }
+
             String transitionTypeString = "";
             switch (geofenceTransition) {
                 case Geofence.GEOFENCE_TRANSITION_ENTER:
@@ -50,11 +55,6 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
                 case Geofence.GEOFENCE_TRANSITION_EXIT:
                     transitionTypeString = "Exited";
                     break;
-            }
-
-            List<String> triggeredGeofencesIds = new ArrayList<>();
-            for (Geofence geofence: triggeringGeofences) {
-                triggeredGeofencesIds.add(geofence.getRequestId());
             }
 
             String notificationString = transitionTypeString + ": " + TextUtils

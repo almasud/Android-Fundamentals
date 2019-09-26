@@ -31,7 +31,7 @@ public class LocationPermissionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location_permission);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            startActivity(new Intent(LocationPermissionActivity.this, ClusterCurrentNearByPlacesActivity.class));
+            startActivity(new Intent(LocationPermissionActivity.this, ClusterCurrentNearByPlacesGeofenceActivity.class));
             finish();
         }
 
@@ -44,7 +44,7 @@ public class LocationPermissionActivity extends AppCompatActivity {
                         .withListener(new PermissionListener() {
                             @Override
                             public void onPermissionGranted(PermissionGrantedResponse response) {
-                                startActivity(new Intent(LocationPermissionActivity.this, ClusterCurrentNearByPlacesActivity.class));
+                                startActivity(new Intent(LocationPermissionActivity.this, ClusterCurrentNearByPlacesGeofenceActivity.class));
                                 finish();
                             }
 
