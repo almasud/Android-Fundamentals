@@ -217,6 +217,15 @@
             android:textSize="12sp"
             android:onClick="activityContentProvider"/>
 
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="Bottom sheet dialog"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:onClick="activityBottomSheetDialog"/>
+
     </LinearLayout>
 
     <LinearLayout

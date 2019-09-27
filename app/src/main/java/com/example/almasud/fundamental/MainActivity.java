@@ -17,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.almasud.fundamental.activity_cycle_and_intent.EmployeeBasicActivity;
 import com.example.almasud.fundamental.alert_dialog.DialogActivity;
+import com.example.almasud.fundamental.bottom_sheet.BottomSheetDialogActivity;
 import com.example.almasud.fundamental.broadcast_receiver.BroadcastReceiverActivity;
 import com.example.almasud.fundamental.camera_app.CameraAppActivity;
 import com.example.almasud.fundamental.checkbox_radio_button_spinner.CheckboxRadioButtonSpinnerActivity;
@@ -190,6 +191,12 @@ public class MainActivity extends AppCompatActivity {
     // Firebase Service Activity
     public void activityFirebase(View view) {
         intent = new Intent(MainActivity.this, FirebaseActivity.class);
+        startActivity(intent);
+    }
+
+    // Bottom sheet dialog
+    public void activityBottomSheetDialog(View view) {
+        intent = new Intent(MainActivity.this, BottomSheetDialogActivity.class);
         startActivity(intent);
     }
 
