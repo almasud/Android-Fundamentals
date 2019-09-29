@@ -30,6 +30,7 @@ import com.example.almasud.fundamental.list_and_recycler_view.ListAndRecyclerVie
 import com.example.almasud.fundamental.map_location.MapActivity;
 import com.example.almasud.fundamental.menu.MenuActivity;
 import com.example.almasud.fundamental.navigation.TabLayoutViewPagerActivity;
+import com.example.almasud.fundamental.object_binding.DataBindingActivity;
 import com.example.almasud.fundamental.processes_and_threads.ProcessThreadActivity;
 import com.example.almasud.fundamental.searchable_interface.SearchableInterfaceActivity;
 import com.example.almasud.fundamental.service.ServiceActivity;
@@ -194,10 +195,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // Bottom sheet dialog
+    // Bottom Sheet Dialog Activity
     public void activityBottomSheetDialog(View view) {
         intent = new Intent(MainActivity.this, BottomSheetDialogActivity.class);
         startActivity(intent);
+    }
+
+    // Simple Object Binding Activity
+    public void activityObjectBinding(View view) {
+        startActivity(new Intent(MainActivity.this, DataBindingActivity.class));
     }
 
     // Show a dialog
