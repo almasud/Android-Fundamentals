@@ -36,7 +36,7 @@
     <string name="dynamic_spinner">Dynamic Spinner</string>
     <string name="sign_in">Sign in</string>
     <string name="cancel">Cancel</string>
-    <string name="sms_read">Read Received SMS</string>
+    <string name="sms_incoming_number_read">Read Received SMS and Incoming Number</string>
     <string name="shared_preference">Shared Preference</string>
     <string name="title_activity_pref_login">SPref Login Activity</string>
     <string name="title_activity_pref_main">SPref Main Activity</string>
@@ -81,6 +81,6 @@
     <string name="menu">Menu</string>
     <string name="list_and_recycler_view">List and Recycler View</string>
     <string name="fragment">Fragment</string>
-    <string name="sorted_practice">Sorted Practice</string>
+    <string name="practice_list">Practice List</string>
     <string name="unsorted_practice">Unsorted Practice</string>
 </resources>

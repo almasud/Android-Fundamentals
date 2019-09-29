@@ -9,10 +9,18 @@
     android:gravity="center">
 
     <Button
-        android:id="@+id/button_sms_receive"
+        android:id="@+id/button_sms_call_receive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sms_read"
+        android:text="@string/sms_incoming_number_read"
+        android:textAllCaps="false"
+        android:textSize="12dp"/>
+
+    <Button
+        android:id="@+id/button_custom_broadcast_receiver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Custom Broadcast Receiver"
         android:textAllCaps="false"
         android:textSize="12dp"/>
 
