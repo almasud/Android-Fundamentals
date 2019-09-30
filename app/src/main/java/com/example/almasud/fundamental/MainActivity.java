@@ -30,8 +30,9 @@ import com.example.almasud.fundamental.list_and_recycler_view.ListAndRecyclerVie
 import com.example.almasud.fundamental.map_location.MapActivity;
 import com.example.almasud.fundamental.menu.MenuActivity;
 import com.example.almasud.fundamental.navigation.TabLayoutViewPagerActivity;
-import com.example.almasud.fundamental.object_binding.DataBindingActivity;
+import com.example.almasud.fundamental.data_binding.DataBindingActivity;
 import com.example.almasud.fundamental.processes_and_threads.ProcessThreadActivity;
+import com.example.almasud.fundamental.room_library.RoomLibraryActivity;
 import com.example.almasud.fundamental.searchable_interface.SearchableInterfaceActivity;
 import com.example.almasud.fundamental.service.ServiceActivity;
 import com.example.almasud.fundamental.shared_preference.SharedPreferenceActivity;
@@ -201,9 +202,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // Simple Object Binding Activity
-    public void activityObjectBinding(View view) {
+    // Data Binding (Part of android Jetpack architecture) Activity
+    public void activityDataBinding(View view) {
         startActivity(new Intent(MainActivity.this, DataBindingActivity.class));
+    }
+
+    // Room Library (Part of android Jetpack architecture) Activity
+    public void activityRoomLibrary(View view) {
+        startActivity(new Intent(MainActivity.this, RoomLibraryActivity.class));
     }
 
     // Show a dialog
@@ -245,6 +251,7 @@ public class MainActivity extends AppCompatActivity {
 
         return builder;
     }
+
 
     // Custom dialog for an action
     public interface OnActionListener {

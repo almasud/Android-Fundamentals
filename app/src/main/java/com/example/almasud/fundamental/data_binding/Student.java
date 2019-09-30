@@ -1,4 +1,4 @@
-package com.example.almasud.fundamental.object_binding;
+package com.example.almasud.fundamental.data_binding;
 
 public class Student {
     private String name;

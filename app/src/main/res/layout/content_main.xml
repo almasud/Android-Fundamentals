@@ -249,7 +249,16 @@
             android:text="Data Binding"
             android:textAllCaps="false"
             android:textSize="12sp"
-            android:onClick="activityObjectBinding"/>
+            android:onClick="activityDataBinding"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Room Library"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            android:onClick="activityRoomLibrary"/>
 
     </LinearLayout>
 

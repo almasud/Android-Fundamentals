@@ -17,10 +17,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     private ArrayList<Contact> contacts;
     private ClickListener listener;
 
-    public ContactAdapter(Context context, ArrayList<Contact> contacts, ClickListener listener) {
+    public ContactAdapter(Context context, ArrayList<Contact> contacts) {
         this.context = context;
         this.contacts = contacts;
-        this.listener = listener;
+        this.listener = (ClickListener) context;
     }
 
     @NonNull

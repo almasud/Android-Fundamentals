@@ -2,15 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".object_binding.DataBindingActivity">
+    tools:context=".data_binding.DataBindingActivity">
 
     <data>
         <variable
             name="st"
-            type="com.example.almasud.fundamental.object_binding.Student" />
+            type="com.example.almasud.fundamental.data_binding.Student" />
         <variable
             name="msg"
-            type="com.example.almasud.fundamental.object_binding.Message" />
+            type="com.example.almasud.fundamental.data_binding.Message" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

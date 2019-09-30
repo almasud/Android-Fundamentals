@@ -1,4 +1,4 @@
-package com.example.almasud.fundamental.object_binding;
+package com.example.almasud.fundamental.data_binding;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;

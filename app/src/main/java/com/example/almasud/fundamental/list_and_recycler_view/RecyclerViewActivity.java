@@ -32,7 +32,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements ContactAd
         contactRV = findViewById(R.id.contactRV);
 
         contacts = new ArrayList<>();
-        contactAdapter = new ContactAdapter(this, contacts, this);
+        contactAdapter = new ContactAdapter(this, contacts);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         contactRV.setLayoutManager(layoutManager);
         contactRV.setAdapter(contactAdapter);
