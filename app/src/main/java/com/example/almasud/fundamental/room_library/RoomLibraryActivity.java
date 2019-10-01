@@ -43,6 +43,7 @@ public class RoomLibraryActivity extends AppCompatActivity implements StudentAda
             adapter.updateData(students);
             binding.editTextRoomSName.setText("");
             binding.editTextRoomSCity.setText("");
+            binding.editTextRoomSPhone.setText("");
             Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();

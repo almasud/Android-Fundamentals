@@ -20,5 +20,10 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:text="@{st.city}"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@{st.phone}"/>
     </LinearLayout>
 </layout>

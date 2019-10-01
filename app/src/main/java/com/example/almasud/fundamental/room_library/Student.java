@@ -17,6 +17,8 @@ public class Student {
     private String name;
     @ColumnInfo(name = "col_student_city")
     private String city;
+    @ColumnInfo(name = "col_student_phone")
+    private String phone;
     @Ignore
     private int count;
 
@@ -24,16 +26,18 @@ public class Student {
     public Student() {
     }
 
-    public Student(String name, String city) {
+    public Student(String name, String city, String phone) {
         this.name = name;
         this.city = city;
+        this.phone = phone;
     }
 
     @Ignore
-    public Student(int studentId, String name, String city) {
+    public Student(int studentId, String name, String city, String phone) {
         this.studentId = studentId;
         this.name = name;
         this.city = city;
+        this.phone = phone;
     }
 
     public int getStudentId() {
@@ -58,5 +62,13 @@ public class Student {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
