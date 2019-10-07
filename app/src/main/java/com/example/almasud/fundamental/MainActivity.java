@@ -38,6 +38,7 @@ import com.example.almasud.fundamental.searchable_interface.SearchableInterfaceA
 import com.example.almasud.fundamental.service.ServiceActivity;
 import com.example.almasud.fundamental.shared_preference.SharedPreferenceActivity;
 import com.example.almasud.fundamental.sqlite_database.SQLiteDBActivity;
+import com.example.almasud.fundamental.view_model.DataViewModelActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -206,6 +207,11 @@ public class MainActivity extends AppCompatActivity {
     // Data Binding (Part of android jetpack architecture components) Activity
     public void activityDataBinding(View view) {
         startActivity(new Intent(MainActivity.this, DataBindingActivity.class));
+    }
+
+    // View Model (Part of android jetpack architecture components) Activity
+    public void activityViewModel(View view) {
+        startActivity(new Intent(MainActivity.this, DataViewModelActivity.class));
     }
 
     // Room Library (Part of android jetpack architecture components) Activity

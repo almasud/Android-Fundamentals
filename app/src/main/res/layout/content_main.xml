@@ -263,6 +263,15 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:text="Data Binding"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:onClick="activityDataBinding"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="Life Cycle Aware"
                 android:textAllCaps="false"
                 android:textSize="12sp"
@@ -272,10 +281,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Data Binding"
+                android:text="View Model"
                 android:textAllCaps="false"
                 android:textSize="12sp"
-                android:onClick="activityDataBinding"/>
+                android:onClick="activityViewModel"/>
 
             <Button
                 android:layout_width="0dp"
