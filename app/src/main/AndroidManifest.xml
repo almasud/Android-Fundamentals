@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view_model.DataViewModelActivity"></activity>
+        <activity android:name=".live_data.LiveDataActivity"></activity>
+        <activity android:name=".view_model.DataViewModelActivity" />
         <activity android:name=".life_cycle_aware.LifeCycleAwareActivity" />
         <activity android:name=".room_library.RoomLibraryActivity" />
         <activity android:name=".data_binding.DataBindingActivity" />

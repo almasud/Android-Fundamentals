@@ -28,6 +28,7 @@ import com.example.almasud.fundamental.fragment.FragmentActivity;
 import com.example.almasud.fundamental.http_api.HttpApiActivity;
 import com.example.almasud.fundamental.life_cycle_aware.LifeCycleAwareActivity;
 import com.example.almasud.fundamental.list_and_recycler_view.ListAndRecyclerViewActivity;
+import com.example.almasud.fundamental.live_data.LiveDataActivity;
 import com.example.almasud.fundamental.map_location.MapActivity;
 import com.example.almasud.fundamental.menu.MenuActivity;
 import com.example.almasud.fundamental.tab_layout_view_pager.TabLayoutViewPagerActivity;
@@ -209,19 +210,24 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, DataBindingActivity.class));
     }
 
+    // Life Cycle Aware(Part of android jetpack architecture components) Activity
+    public void activityLifeCycleAware(View view) {
+        startActivity(new Intent(MainActivity.this, LifeCycleAwareActivity.class));
+    }
+
     // View Model (Part of android jetpack architecture components) Activity
     public void activityViewModel(View view) {
         startActivity(new Intent(MainActivity.this, DataViewModelActivity.class));
     }
 
+    // Live Data(Part of android jetpack architecture components) with ViewModel Activity
+    public void activityLiveData(View view) {
+        startActivity(new Intent(MainActivity.this, LiveDataActivity.class));
+    }
+
     // Room Library (Part of android jetpack architecture components) Activity
     public void activityRoomLibrary(View view) {
         startActivity(new Intent(MainActivity.this, RoomLibraryActivity.class));
-    }
-
-    // Life Cycle Aware(Part of android jetpack architecture components) Activity
-    public void activityLifeCycleAware(View view) {
-        startActivity(new Intent(MainActivity.this, LifeCycleAwareActivity.class));
     }
 
     // Show a dialog

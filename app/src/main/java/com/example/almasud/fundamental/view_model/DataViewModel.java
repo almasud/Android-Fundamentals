@@ -12,7 +12,7 @@ public class DataViewModel extends ViewModel {
 
     public String getRandNumber() {
         if (randNumber == null) {
-            randNumber = "Number is: " + (new Random().nextInt(11) + 1);
+            randNumber = "Number is: " + (new Random().nextInt(10) + 1);
             Log.i(TAG, "Create new random number");
         }
         Log.i(TAG, "Get random number");
