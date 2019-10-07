@@ -46,11 +46,6 @@ dependencies {
     implementation 'com.karumi:dexter:5.0.0'
     // custom search bar
     implementation 'com.github.mancj:MaterialSearchBar:0.8.2'
-    // MultiDex support
-    implementation 'com.android.support:multidex:1.0.3'
-    // Room
-    implementation "androidx.room:room-runtime:2.2.0-rc01"
-    annotationProcessor "androidx.room:room-compiler:2.2.0-rc01"
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
@@ -63,6 +58,16 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    // MultiDex support
+    implementation 'com.android.support:multidex:1.0.3'
+    // Room
+    implementation "androidx.room:room-runtime:2.2.0-rc01"
+    annotationProcessor "androidx.room:room-compiler:2.2.0-rc01"
+    // Life cycle
+    def lifecycle_version = "1.1.1"
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
 
     apply plugin: 'com.google.gms.google-services'
 }

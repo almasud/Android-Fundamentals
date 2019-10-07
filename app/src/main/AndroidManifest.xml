@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".room_library.RoomLibraryActivity"></activity>
+        <activity android:name=".life_cycle_aware.LifeCycleAwareActivity"></activity>
+        <activity android:name=".room_library.RoomLibraryActivity" />
         <activity android:name=".data_binding.DataBindingActivity" />
 
         <receiver
@@ -106,7 +107,7 @@
             android:authorities="com.example.almasud.fundamental.searchable_interface.RecentSearch" />
 
         <activity android:name=".http_api.RetrofitPostActivity" />
-        <activity android:name=".navigation.TabLayoutViewPagerActivity" />
+        <activity android:name=".tab_layout_view_pager.TabLayoutViewPagerActivity" />
         <activity android:name=".map_location.CurrentLocationActivity" />
         <activity android:name=".http_api.RetrofitDynamicURLActivity" />
         <activity android:name=".http_api.FlowerViewActivity" />

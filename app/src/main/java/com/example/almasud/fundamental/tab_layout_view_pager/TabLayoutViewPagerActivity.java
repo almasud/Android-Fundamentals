@@ -1,4 +1,4 @@
-package com.example.almasud.fundamental.navigation;
+package com.example.almasud.fundamental.tab_layout_view_pager;
 
 import android.Manifest;
 import android.content.DialogInterface;

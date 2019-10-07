@@ -1,4 +1,4 @@
-package com.example.almasud.fundamental.navigation;
+package com.example.almasud.fundamental.tab_layout_view_pager;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

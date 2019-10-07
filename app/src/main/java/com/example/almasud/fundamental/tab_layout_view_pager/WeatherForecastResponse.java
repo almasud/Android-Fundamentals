@@ -1,4 +1,4 @@
-package com.example.almasud.fundamental.navigation;
+package com.example.almasud.fundamental.tab_layout_view_pager;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

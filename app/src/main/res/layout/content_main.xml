@@ -2,264 +2,292 @@
 <!--
   * We can change our content from here.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
-    tools:showIn="@layout/activity_main"
-    android:orientation="vertical">
+    tools:showIn="@layout/activity_main">
 
     <LinearLayout
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/practice_list"
-            android:textAlignment="center" />
-    </LinearLayout>
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/activity_life_cycle_and_intent"
-            android:textSize="12sp"
-            android:textAllCaps="false"
-            android:onClick="activityLifeCycle"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/practice_list"
+                android:textAlignment="center" />
+        </LinearLayout>
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/checkbox_radio_button_spinner"
-            android:textAllCaps="false"
-            android:onClick="activityCheckboxRadioButtonSpinner"
-            android:textSize="12sp"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/event_handling"
-            android:textSize="12sp"
-            android:textAllCaps="false"
-            android:onClick="activityEventHandle"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/menu"
-            android:textSize="12sp"
-            android:textAllCaps="false"
-            android:onClick="activityMenu"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="activityAlertDialog"
-            android:text="@string/alert_dialog"
-            android:textAllCaps="false"
-            android:textSize="12sp" />
-
-        <Button
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="activityListView"
-            android:text="@string/list_and_recycler_view"
-            android:textAllCaps="false"
-            android:textSize="12sp" />
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/activity_life_cycle_and_intent"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                android:onClick="activityLifeCycle"/>
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="activitySharedPreference"
-            android:text="@string/shared_preference"
-            android:textAllCaps="false"
-            android:textSize="12sp" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/checkbox_radio_button_spinner"
+                android:textAllCaps="false"
+                android:onClick="activityCheckboxRadioButtonSpinner"
+                android:textSize="12sp"/>
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="activityFragment"
-            android:text="@string/fragment"
-            android:textAllCaps="false"
-            android:textSize="12sp" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/event_handling"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                android:onClick="activityEventHandle"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/menu"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                android:onClick="activityMenu"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="activityAlertDialog"
+                android:text="@string/alert_dialog"
+                android:textAllCaps="false"
+                android:textSize="12sp" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="activityListView"
+                android:text="@string/list_and_recycler_view"
+                android:textAllCaps="false"
+                android:textSize="12sp" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="activitySharedPreference"
+                android:text="@string/shared_preference"
+                android:textAllCaps="false"
+                android:textSize="12sp" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="activityFragment"
+                android:text="@string/fragment"
+                android:textAllCaps="false"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="@string/sqlite_database"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:onClick="activitySQLiteDB"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="Process and Thread"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:onClick="activityProcessThread"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="HTTP API"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:onClick="activityHttpApi"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="activitySearchableInterface"
+                android:text="Searchable Interface"
+                android:textAllCaps="false"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="activityMapAndLocation"
+                android:text="Google Map and Location"
+                android:textAllCaps="false"
+                android:textSize="12sp" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="activityLayoutViewPager"
+                android:text="Tab Layout with View Pager"
+                android:textAllCaps="false"
+                android:textSize="12sp" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="cameraAppActivity"
+                android:text="Camera app using file system"
+                android:textAllCaps="false"
+                android:textSize="12sp" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="activityFirebase"
+                android:text="@string/firebase_service"
+                android:textAllCaps="false"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/service"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:onClick="activityService"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="@string/content_provider"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:onClick="activityContentProvider"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="Bottom sheet dialog"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:onClick="activityBottomSheetDialog"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="activityBroadCast"
+                android:text="@string/broadcast_receiver"
+                android:textAllCaps="false"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Android Jetpack - Architecture Components"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Life Cycle Aware"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:onClick="activityLifeCycleAware"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Data Binding"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:onClick="activityDataBinding"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Room Library"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:onClick="activityRoomLibrary"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="@string/sqlite_database"
-            android:layout_weight="1"
-            android:textSize="12sp"
-            android:onClick="activitySQLiteDB"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="Process and Thread"
-            android:layout_weight="1"
-            android:textSize="12sp"
-            android:onClick="activityProcessThread"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="HTTP API"
-            android:layout_weight="1"
-            android:textSize="12sp"
-            android:onClick="activityHttpApi"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="activitySearchableInterface"
-            android:text="Searchable Interface"
-            android:textAllCaps="false"
-            android:textSize="12sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <Button
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:onClick="activityMapAndLocation"
-        android:text="Google Map and Location"
-        android:textAllCaps="false"
-        android:textSize="12sp" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="activityLayoutViewPager"
-            android:text="Tab Layout with View Pager"
-            android:textAllCaps="false"
-            android:textSize="12sp" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="cameraAppActivity"
-            android:text="Camera app using file system"
-            android:textAllCaps="false"
-            android:textSize="12sp" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="activityFirebase"
-            android:text="@string/firebase_service"
-            android:textAllCaps="false"
-            android:textSize="12sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/service"
-            android:textAllCaps="false"
-            android:textSize="12sp"
-            android:onClick="activityService"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="@string/content_provider"
-            android:layout_weight="1"
-            android:textSize="12sp"
-            android:onClick="activityContentProvider"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="Bottom sheet dialog"
-            android:layout_weight="1"
-            android:textSize="12sp"
-            android:onClick="activityBottomSheetDialog"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="activityBroadCast"
-            android:text="@string/broadcast_receiver"
-            android:textAllCaps="false"
-            android:textSize="12sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Data Binding"
-            android:textAllCaps="false"
-            android:textSize="12sp"
-            android:onClick="activityDataBinding"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Room Library"
-            android:textAllCaps="false"
-            android:textSize="12sp"
-            android:onClick="activityRoomLibrary"/>
-
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>
