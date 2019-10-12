@@ -20,10 +20,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".live_data.LiveDataActivity"></activity>
+        <activity
+            android:name=".room_persistence_library.RoomLibraryActivity"
+            android:label="@string/title_activity_room_library"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".live_data.LiveDataActivity" />
         <activity android:name=".view_model.DataViewModelActivity" />
         <activity android:name=".life_cycle_aware.LifeCycleAwareActivity" />
-        <activity android:name=".room_library.RoomLibraryActivity" />
+        <activity android:name=".room_persistence_library.StudentFormActivity" />
         <activity android:name=".data_binding.DataBindingActivity" />
 
         <receiver

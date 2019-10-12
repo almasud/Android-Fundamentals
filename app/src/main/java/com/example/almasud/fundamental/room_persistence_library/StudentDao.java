@@ -1,5 +1,6 @@
-package com.example.almasud.fundamental.room_library;
+package com.example.almasud.fundamental.room_persistence_library;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -23,20 +24,20 @@ import java.util.List;
 @Dao
 public interface StudentDao {
     @Insert
-    long insertStudent(Student student);
+    long insert(Student student);
 
     @Insert
-    long[] insertStudents(Student... students);
+    long[] insert(Student... students);
 
     @Query("SELECT * FROM tbl_student")
-    List<Student> getAllStudents();
+    LiveData<List<Student>> getAllStudents();
 
-    @Query("SELECT * FROM tbl_student WHERE studentId LIKE:id")
-    Student getStudentById(int id);
+    @Query("SELECT * FROM tbl_student WHERE col_student_id=:id")
+    LiveData<Student> getStudent(int id);
 
     @Update
-    int updateStudent(Student student);
+    int update(Student student);
 
     @Delete
-    int deleteStudent(Student student);
+    int delete(Student student);
 }

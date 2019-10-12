@@ -83,4 +83,7 @@
     <string name="fragment">Fragment</string>
     <string name="practice_list">Practice List</string>
     <string name="unsorted_practice">Unsorted Practice</string>
+    <string name="title_activity_room_library">RoomLibraryActivity</string>
+    <string name="update">Update</string>
+    <string name="save">Save</string>
 </resources>

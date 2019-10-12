@@ -31,10 +31,10 @@ import com.example.almasud.fundamental.list_and_recycler_view.ListAndRecyclerVie
 import com.example.almasud.fundamental.live_data.LiveDataActivity;
 import com.example.almasud.fundamental.map_location.MapActivity;
 import com.example.almasud.fundamental.menu.MenuActivity;
+import com.example.almasud.fundamental.room_persistence_library.RoomLibraryActivity;
 import com.example.almasud.fundamental.tab_layout_view_pager.TabLayoutViewPagerActivity;
 import com.example.almasud.fundamental.data_binding.DataBindingActivity;
 import com.example.almasud.fundamental.processes_and_threads.ProcessThreadActivity;
-import com.example.almasud.fundamental.room_library.RoomLibraryActivity;
 import com.example.almasud.fundamental.searchable_interface.SearchableInterfaceActivity;
 import com.example.almasud.fundamental.service.ServiceActivity;
 import com.example.almasud.fundamental.shared_preference.SharedPreferenceActivity;
@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, LiveDataActivity.class));
     }
 
-    // Room Library (Part of android jetpack architecture components) Activity
+    // Room Persistence Library (Part of android jetpack architecture components) Activity
     public void activityRoomLibrary(View view) {
         startActivity(new Intent(MainActivity.this, RoomLibraryActivity.class));
     }

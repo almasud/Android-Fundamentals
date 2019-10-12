@@ -1,23 +1,31 @@
-package com.example.almasud.fundamental.room_library;
+package com.example.almasud.fundamental.room_persistence_library;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import java.io.Serializable;
 
 /**
  * Automatically generate SQLite database depend of each annotation.
  */
 
 @Entity(tableName = "tbl_student")
-public class Student {
+public class Student implements Serializable {
     @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name = "col_student_id")
     private int studentId;
     @ColumnInfo(name = "col_student_name")
+    @NonNull
     private String name;
     @ColumnInfo(name = "col_student_city")
+    @NonNull
     private String city;
     @ColumnInfo(name = "col_student_phone")
+    @NonNull
     private String phone;
     @Ignore
     private int count;

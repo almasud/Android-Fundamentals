@@ -20,9 +20,9 @@ public class LifeCycleAwareActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_life_cycle_aware);
 
+        getLifecycle().addObserver(new LifeCycleAwareObserver(this));
         Log.i(TAG, "Owner ON_CREATE");
         Toast.makeText(this, TAG + "Owner ON_CREATE", Toast.LENGTH_SHORT).show();
-        getLifecycle().addObserver(new LifeCycleAwareObserver(this));
     }
 
     @Override

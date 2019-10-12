@@ -15,7 +15,7 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_EMPLOYEE_DESIGNATION = "emp_designation";
 
     /*
-        Whenever you create a table without specifying the WITHOUT ROWID option, you
+        Whenever you create a table without specifying the ROWID option, you
         get an implicit auto increment column called rowid. The rowid column store
         64-bit signed integer that uniquely identify a row within the table. SQLite
         automatically creates an implicit column named rowid and automatically assigns
